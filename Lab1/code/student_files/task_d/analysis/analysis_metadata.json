@@ -1,0 +1,15 @@
+{
+  "prediction_csv": "student_files\\task_d\\task_d_predictions.csv",
+  "prediction_sha256": "b021417226035dfb38e3181e2dc1047d3b560d92e8798a93502023a69e57ac6e",
+  "recorded_run_metadata": [
+    [
+      "Gemini Flash",
+      "3.6",
+      "2026-10-06",
+      "unavailable"
+    ]
+  ],
+  "n_predictions": 15,
+  "D1_policy": "binary discovery primary; literal exact names diagnostic; no alias mapping",
+  "confidence_policy": "descriptive joint decision/name confidence; not a calibration test"
+}

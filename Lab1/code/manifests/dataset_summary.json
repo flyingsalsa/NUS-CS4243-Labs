@@ -1,0 +1,22 @@
+{
+  "mvtec": {
+    "rows": 1781,
+    "train": 1266,
+    "validation": 267,
+    "test": 248,
+    "defective": 382
+  },
+  "dtd": {
+    "rows": 5640,
+    "train": 1880,
+    "validation": 1880,
+    "test": 1880,
+    "attributes": 47
+  },
+  "task_d": {
+    "queries": 5,
+    "support_images": 25,
+    "query_split": "test",
+    "support_split": "validation"
+  }
+}

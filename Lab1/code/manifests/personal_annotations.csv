@@ -1,0 +1,16 @@
+path,split,material,defect_type,mask_path,attributes,annotator_1_terms,annotator_2_terms,annotation_completed_before_inference,viewpoint,scale,illumination,exif_removed
+../student_files/Personal_Photos/carpet1.png,personal,carpet,color,,woven;fibrous;,woven;fibrous;bumpy,woven;fibrous;bumpy,yes,frontal,close-up,uneven brightness,yes
+../student_files/Personal_Photos/carpet2.png,personal,carpet,combined,,woven;fibrous;stained,woven;fibrous;bumpy;stained,woven;fibrous;stained,yes,frontal,close-up,uneven brightness with local highlight,yes
+../student_files/Personal_Photos/carpet3.png,personal,carpet,color,,woven;fibrous;lined,woven;fibrous;lined,woven;fibrous;lined,yes,angled down,mid distance,uneven brightness,yes
+../student_files/Personal_Photos/carpet4.png,personal,carpet,color,,fibrous;matted;flecked,fibrous;matted;flecked,fibrous;matted;flecked,yes,frontal,mid distance,uneven brightness,yes
+../student_files/Personal_Photos/carpet5.png,personal,carpet,good,,woven;interlaced;chequered;grid,woven;interlaced;chequered;grid,woven;interlaced;chequered;grid,yes,frontal,close-up,even brightness,yes
+../student_files/Personal_Photos/tile1.png,personal,tile,good,,flecked;blotchy;bumpy,flecked;blotchy;bumpy,flecked;blotchy;bumpy,yes,angled down,close-up,strong brightness gradient,yes
+../student_files/Personal_Photos/tile2.png,personal,tile,color,,bumpy;flecked;stained,bumpy;flecked;stained,bumpy;flecked;stained,yes,frontal,close-up,strong local specular highlight,yes
+../student_files/Personal_Photos/tile3.png,personal,tile,liquid,,bumpy;blotchy;stained,bumpy;blotchy;stained,bumpy;blotchy;stained,yes,frontal,close-up,strong local specular highlight,yes
+../student_files/Personal_Photos/tile4.png,personal,tile,scratch,,bumpy;blotchy;flecked,bumpy;blotchy;flecked,bumpy;blotchy;flecked,yes,angled down,close-up,multiple specular highlights and shadow,yes
+../student_files/Personal_Photos/wood1.png,personal,wood,good,,lined;striped;banded,lined;striped;banded,lined;striped;banded,yes,frontal,close-up,uneven brightness,yes
+../student_files/Personal_Photos/wood2.png,personal,wood,good,,lined;striped;banded,lined;striped;banded,lined;striped;banded,yes,frontal,mid distance,strong local specular highlight,yes
+../student_files/Personal_Photos/wood3.png,personal,wood,liquid,,lined;banded;blotchy,lined;banded;blotchy,lined;banded;blotchy,yes,frontal,close-up,strong specular reflection,yes
+../student_files/Personal_Photos/wood4.png,personal,wood,color,,lined;striped;smeared;blotchy,lined;striped;smeared,lined;striped;smeared,yes,angled sideways,mid distance,uneven brightness with reflective region,yes
+../student_files/Personal_Photos/wood5.png,personal,wood,color,,lined;smeared;stained,lined;smeared;stained;blotchy,lined;smeared;stained,yes,angled sideways,close-up,uneven brightness with reflective region,yes
+../student_files/Personal_Photos/wood6.png,personal,wood,good,,lined;striped;banded,lined;striped;banded,lined;striped;banded,yes,angled sideways,close-up,strong brightness gradient,yes

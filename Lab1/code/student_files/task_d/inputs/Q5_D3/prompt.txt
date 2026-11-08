@@ -1,0 +1,21 @@
+Inspect the attached query image. The material is wood.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+combined: More than one defect mechanism appears in the same image.
+hole: Material is missing in a compact hole-like region.
+liquid: A liquid stain changes colour or reflectance locally.
+scratch: A thin elongated abrasion crosses the surface.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or "good" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: color
+Support image 2: combined
+Support image 3: hole
+Support image 4: liquid
+Support image 5: scratch
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.

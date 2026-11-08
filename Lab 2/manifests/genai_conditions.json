@@ -1,0 +1,115 @@
+{
+  "mode": "personal_clip_frames",
+  "clip_id": "personal_clip",
+  "artwork": "../../data/artwork/artwork.png",
+  "reference": "../../data/personal/personal_clip/reference.png",
+  "frames": {
+    "clean": 0,
+    "occluded": 84,
+    "perspective": 378,
+    "pair": [
+      259,
+      260
+    ],
+    "note": "Audit frames of your clip (inside your cut if you cut it): one with nothing in front of the board, one with the occluder on the board (a mask frame), the one with the strongest perspective, and one consecutive pair (f, f+1) for the temporal terms. Fill in the frame indices and model.interval before the first generation. The three named frames must be distinct and have audit corners; the occluded frame also needs an audit mask. Choose a pair mapping to distinct output frames at the model frame rate. Use the same full audit dictionary for classical and generative temporal interpolation.",
+    "selection_note": "Before generation, changed 258/259 to 259/260 for Wan 16 fps: former both map to output 138; new pair maps to 138/139 from source start 0. Frame 260 uses the evaluator's interpolation from the full corner audit dictionary. Other selected frames unchanged. [AI-DESIGN]"
+  },
+  "model": {
+    "requirement": "One open-weight video model generates the edited pixels directly. Inference scripts are permitted. One attempt, fixed settings/seed across duration-limited segments; log every segment and technical retry.",
+    "examples": "Use an open-weight video model your hardware supports, for example MiniMax-H3 (MiniMax, 2026, https://huggingface.co/MiniMaxAI/MiniMax-H3), JoyAI-Video-Edit (JD Open Source, 2026, https://github.com/jd-opensource/JoyAI-Video-Edit), LTX-2.3 (Lightricks, 2026, in/outpainting IC-LoRA) or Wan2.1-VACE-14B (Wan, arXiv:2503.20314; VACE, Jiang et al., arXiv:2503.07598); other open-weight models are equally welcome. Wan2.1-VACE-1.3B (Apache 2.0) is a smaller option; memory depends on settings (staff trial: 14 GB, 13 min for a 5.5 s cut at 480p, mask + reference image). The staff example with MiniMax-H3 is in data/genai_oracle/.",
+    "name": "Wan2.1-VACE-14B (QuantStack GGUF Q5_K_M)",
+    "interval": {
+      "start": 0,
+      "end": 378,
+      "note": "Inclusive original source indices; 0.000 to 12.633333 s exclusive at 30 fps. Original 442-frame capture retained. Three consecutive segments on one global 16 fps grid; final input padding removed only from joined output, raw outputs preserved."
+    },
+    "output_fps": 16,
+    "output": "outputs/genai/output.mp4",
+    "seed": 42,
+    "base_model": "Wan-AI/Wan2.1-VACE-14B",
+    "quantized_repository": "QuantStack/Wan2.1_14B_VACE-GGUF",
+    "quantization": "Q5_K_M",
+    "backend": "ComfyUI + city96/ComfyUI-GGUF, imported from Python without UI",
+    "status": "completed: attempt 2 (corrected VACE inpainting inputs), submitted in outputs/genai/; attempt 1 archived in outputs/genai/attempt1_mv2v/",
+    "setup_script": "student_files/stage4/vace_inpaint.py",
+    "settings_note": "Attempt 2 settings chosen on common-clip validation only (outputs/genai_validation/), frozen before any personal-clip generation. Model, quantisation, seed, sampler, steps, CFG and shift equal attempt 1. Final run samples with a per-step CUDA synchronisation after three technical failures (non-finite segment 1), see outputs/genai/technical_failures/.",
+    "settings": {
+      "width": 768,
+      "height": 432,
+      "length": 81,
+      "steps": 30,
+      "cfg": 5.0,
+      "sampler": "uni_pc",
+      "scheduler": "simple",
+      "shift": 8.0,
+      "strength": 1.0,
+      "negative_prompt": ""
+    },
+    "segments": [
+      {
+        "source_start": 0,
+        "source_end": 149,
+        "output_start": 0,
+        "keep_frames": 80,
+        "generated_frames": 81
+      },
+      {
+        "source_start": 150,
+        "source_end": 299,
+        "output_start": 80,
+        "keep_frames": 80,
+        "generated_frames": 81
+      },
+      {
+        "source_start": 300,
+        "source_end": 378,
+        "output_start": 160,
+        "keep_frames": 43,
+        "generated_frames": 81
+      }
+    ],
+    "control": {
+      "masked_fill": 0.5,
+      "mask_dilation_px": 8,
+      "lost_frames": "convex hull of the nearest frozen-tracker quads before and after",
+      "reference_mode": "stretch",
+      "mask_source": "frozen flow-assisted tracker corners only; audit annotations never given to the model"
+    },
+    "compute": "NVIDIA GeForce RTX 5080 16 GB, ComfyUI --lowvram, CPU text encoding; 2769.9 s for the 3 submitted segments, 11.42 GiB peak PyTorch allocation"
+  },
+  "prompt": {
+    "inputs": [
+      "your clip (or your cut of it)",
+      "artwork",
+      "board masks from your frozen pipeline (only if the model needs a mask)"
+    ],
+    "template": "Replace the poster on the board in this video with the attached artwork: a vintage travel-poster illustration of a rocky coast with a red-and-white lighthouse on a cliff, a sailboat with a red sail on a blue sea, a large red sun, seagulls in the sky and colourful flowers in the foreground.",
+    "note": "Generic instruction plus a one-sentence content description of the artwork; the description was required for the reference to be used (common-clip ablation). [AI-DESIGN]"
+  },
+  "evaluation": "vace_inpaint.py --clip personal_clip --evaluate --sync-steps: identical selected source indices and full audit dictionary for both classical variants, the generated output and a re-encoded source baseline; outputs/evaluation/stage4_genai_reports.json.",
+  "declaration": "model name and visible version, date, settings (steps, resolution, seed), the video you gave it (whole clip, cut, or joined segments), output fps, prompt, time, compute",
+  "log_fields": [
+    "date",
+    "model",
+    "visible_version",
+    "settings",
+    "seed",
+    "interval",
+    "output_fps",
+    "prompt",
+    "inputs",
+    "input_resolution",
+    "output_resolution",
+    "processing_time_s",
+    "compute",
+    "output_path",
+    "notes"
+  ],
+  "artwork_status": "Final crop supplied by Matthew, 1481x1024; used unchanged for both methods.",
+  "attempt_history": {
+    "attempt1_mv2v": "512x288, raw source pixels inside the edit mask, generic prompt; model kept the car poster. Archived: outputs/genai/attempt1_mv2v/, outputs/evaluation/attempt1_mv2v/, student_files/stage4/archive/genai_conditions_attempt1.json.",
+    "supplementary_r2v": "Discarded, not submitted: two-image reference-to-video experiment, outside the same-video comparison; outputs deleted, invocation kept in genai_log.csv.",
+    "attempt2_technical_failures": "outputs/genai/technical_failures/{fp16_run,bf16_run}: segment 1 decoded to all-black frames; segments 0/2 of fp16_run are bit-identical to the submitted run.",
+    "attempt2_submitted": "outputs/genai/ (attempt.json, raw/, output.mp4, frame_XXXXXX.png)."
+  }
+}

@@ -1,0 +1,85 @@
+
+CELL 3
+validation masks: [96, 192, 272]  test masks: [144, 208, 448]  localised: [96, 144, 192, 208, 272, 448]
+
+
+CELL 5
+frame 96: fitted gain 0.962, offset 0.003
+
+
+CELL 7
+top settings on validation:
+   {'strong': 0.15, 'weak': 0.12, 'min_area': 19, 'mean_iou': 0.8899419686772205}
+   {'strong': 0.15, 'weak': 0.12, 'min_area': 38, 'mean_iou': 0.8899419686772205}
+   {'strong': 0.15, 'weak': 0.12, 'min_area': 76, 'mean_iou': 0.8899419686772205}
+   {'strong': 0.2, 'weak': 0.12, 'min_area': 19, 'mean_iou': 0.8899419686772205}
+   {'strong': 0.2, 'weak': 0.12, 'min_area': 38, 'mean_iou': 0.8899419686772205}
+frozen (min_area at full resolution): {'mode': 'difference', 'strong': 0.25, 'weak': 0.12, 'min_area': 152, 'open_radius': 2, 'connectivity': 8, 'gain_quantile': 0.5, 'feather': 3}
+Tie rule: choose the strong threshold nearest the midpoint of the best-scoring plateau, then the weak threshold and area nearest the starting configuration.
+
+
+CELL 9
+frame    IoU     F1  boundary  leakage  baseline leakage
+  144  0.916  0.956     0.620    0.009             0.924
+  208  0.957  0.978     0.932    0.006             0.969
+  448  0.699  0.823     0.321    0.006             0.709
+
+
+CELL 9
+component statistics [label, x, y, w, h, area]:
+[[    1   186    62   118   181 14520]]
+Full comparison with the no-occlusion baseline (mask and alpha measurements):
+frame         method     IoU      F1  boundary F1   leakage
+  144     difference   0.916   0.956        0.620     0.009
+  144   no occlusion   0.000   0.000        0.000     0.924
+  208     difference   0.957   0.978        0.932     0.006
+  208   no occlusion   0.000   0.000        0.000     0.969
+  448     difference   0.699   0.823        0.321     0.006
+  448   no occlusion   0.000   0.000        0.000     0.709
+Scored 3/3 test mask frames; hidden 0.
+
+
+CELL 11
+strong  weak min_area    IoU  leakage  mask px
+  0.25  0.12       38  0.924    0.001    16236
+  0.38  0.12       38  0.924    0.001    16236
+  0.25  0.12      228  0.924    0.001    16236
+  0.25  0.25       38  0.591    0.295     9686
+
+
+CELL 13
+     clip frame           H    IoU     F1  leakage base leak false occ coverage
+ combined   212      frozen  0.957  0.978    0.000     0.983     0.012    0.933
+ combined   216      frozen  0.963  0.981    0.001     0.965     0.008    0.939
+ combined   220      frozen  0.973  0.986    0.002     0.976     0.003    0.957
+ combined   304      frozen  0.887  0.940    0.000     0.939     0.018    0.920
+ combined   306      frozen  0.912  0.954    0.000     0.909     0.007    0.932
+ combined   314      frozen  0.903  0.949    0.000     0.938     0.014    0.925
+
+
+CELL 13
+viewpoint   128      frozen    n/a    n/a    n/a    n/a     0.000    0.964
+viewpoint   224      frozen    n/a    n/a    n/a    n/a     0.110    0.814
+viewpoint   288 GT-fallback    n/a    n/a    n/a    n/a     0.027    0.901
+
+
+CELL 13
+combined clip (coke_unconstrained): mean IoU 0.933  mean leakage 0.001 (baseline 0.952)  false occlusion 0.010 over 6 frames  coverage 0.934 over 6 frames  GT-fallback rows 0/6
+viewpoint clip (coke_perspective): mean IoU nan  mean leakage nan (baseline nan)  false occlusion 0.046 over 3 frames  coverage 0.893 over 3 frames  GT-fallback rows 1/3
+Viewpoint frame 128 (frozen): 0/55301 false-occlusion pixels; mean difference masked=nan, unmasked=0.038
+
+
+CELL 13
+Viewpoint frame 224 (frozen): 4453/40333 false-occlusion pixels; mean difference masked=0.305, unmasked=0.083
+
+
+CELL 13
+Viewpoint frame 288 (GT-fallback): 601/22029 false-occlusion pixels; mean difference masked=0.249, unmasked=0.110
+
+
+CELL 13
+With empty viewpoint masks, every masked visible-board pixel is a false positive. Inspect the panels for edge/texture residuals from foreshortening and resampling, and bright residuals consistent with reflections. A single gain and offset cannot correct spatially varying blur or view-dependent highlights; large residuals are not uniquely evidence of foreground. The panels support locations, while these physical causes remain interpretations.
+
+
+CELL 15
+colour mode not implemented (optional)

@@ -1,0 +1,199 @@
+
+CELL 3
+63 subset frames; 13 validation and 13 test annotated frames
+
+
+CELL 5
+frame    0: error   0.44%  matches  172  inliers  165  ratio 0.96  residual 0.63px  status True
+frame   32: error   0.44%  matches  139  inliers  136  ratio 0.98  residual 0.82px  status True
+frame   80: error   0.42%  matches  120  inliers  115  ratio 0.96  residual 0.78px  status True
+frame  112: error   0.43%  matches  149  inliers  143  ratio 0.96  residual 0.62px  status True
+frame  144: error   0.93%  matches  101  inliers   96  ratio 0.95  residual 0.71px  status True
+frame  176: error   0.41%  matches  180  inliers  175  ratio 0.97  residual 0.78px  status True
+frame  208: error   0.39%  matches  119  inliers  110  ratio 0.92  residual 0.73px  status True
+frame  240: error   0.81%  matches   80  inliers   75  ratio 0.94  residual 0.79px  status True
+frame  272: error   0.85%  matches  116  inliers  110  ratio 0.95  residual 0.68px  status True
+frame  320: error   0.46%  matches  136  inliers  132  ratio 0.97  residual 0.86px  status True
+frame  384: error   0.48%  matches  141  inliers  137  ratio 0.97  residual 0.60px  status True
+frame  416: error   0.46%  matches  145  inliers  141  ratio 0.97  residual 0.71px  status True
+frame  448: error   3.45%  matches   46  inliers   38  ratio 0.83  residual 1.08px  status True
+
+
+CELL 5
+frozen success threshold: 0.02
+Selection rule: fixed 2% of the board diagonal, an application tolerance; failures remain failures.
+Validation at the frozen tolerance: {'n': 13, 'median': 0.00458594597700559, 'p90': 0.009104427273734977, 'success': 0.9230769230769231, 'failed': 0}
+Stage 1 and Stage 2 settings retained for the subsequent fixed-setting diagnostics:
+{
+  "localisation": {
+    "detector": {
+      "sigma_w": 2.0,
+      "kappa": 0.05,
+      "response_fraction": 0.005,
+      "nms_mode": "radius",
+      "nms_radius": 5,
+      "max_corners": 600,
+      "border": 12
+    },
+    "descriptor": {
+      "patch_scale": 1.0,
+      "orientation_bins": 36,
+      "cells": 4,
+      "cell_bins": 8,
+      "gaussian_weighting": true,
+      "clamp": 0.2
+    },
+    "matcher": {
+      "ratio": 0.8,
+      "mutual": false
+    },
+    "ransac": {
+      "threshold": 9.0,
+      "confidence": 0.995,
+      "max_iterations": 2000,
+      "min_inliers": 12,
+      "seed": 0
+    },
+    "warp": {
+      "feather": 0,
+      "match_gain": false,
+      "reference_shape": null
+    },
+    "success_threshold": 0.02
+  },
+  "track": {
+    "variant": "flow_assisted",
+    "flow": {
+      "window": 7,
+      "iterations": 20,
+      "min_eigenvalue": 0.0002,
+      "max_residual": 0.08,
+      "convergence": 0.01,
+      "pyramid_levels": 1
+    },
+    "monitor": {
+      "min_inlier_count": 12,
+      "min_inlier_ratio": 0.4,
+      "max_median_residual": 3.0,
+      "max_corner_displacement": 60.0,
+      "max_mean_flow": 25.0,
+      "max_brightness_change": 0.15,
+      "hide_after_consecutive": 2
+    },
+    "reinit_every": 60,
+    "reinit_min_points": 20,
+    "propagate": "inliers"
+  }
+}
+
+
+CELL 7
+test summary: {'n': 13, 'median': 0.0046, 'p90': 0.0069, 'success': 1.0, 'failed': 0}
+
+
+CELL 7
+0/13 test frames exceed the frozen threshold.
+Fewer than two failures; the two plots show the worst available cases without altering settings.
+Worst-case frame 160: PASS at 2.0%.
+Worst-case frame 48: PASS at 2.0%.
+
+
+CELL 9
+frame   RANSAC  least-squares
+   16    0.56%         27.69%
+   48    0.72%         17.47%
+   96    0.58%          0.67%
+  128    0.33%          0.73%
+  160    0.77%         12.13%
+  192    0.56%         50.45%
+  224    0.36%          0.73%
+  256    0.41%          0.74%
+  288    0.26%         14.02%
+  368    0.39%          2.61%
+  400    0.46%          1.03%
+  432    0.43%          5.79%
+  464    0.53%         62.47%
+
+
+CELL 11
+stress clips per Stage: {1: {'viewpoint': 'coke_perspective', 'scale': 'coke_scale'}, 2: {'blur': 'coke_blur', 'exit': 'coke_out_of_view'}, 3: {'viewpoint': 'coke_perspective', 'combined': 'coke_unconstrained'}}
+viewpoint  coke_perspective   scale [0.584, 1.067]  rotation [-21.0, 36.5] deg  keystone 1.586  affine residual of the GT quads 9.8%
+scale      coke_scale         scale [0.285, 1.001]  rotation [-7.2, 0.7] deg  keystone 1.058  affine residual of the GT quads 1.6%
+blur       coke_blur          scale [0.81, 1.173]  rotation [-18.3, 8.5] deg  keystone 1.16  affine residual of the GT quads 2.4%
+exit       coke_out_of_view   scale [0.945, 1.217]  rotation [-9.1, 0.8] deg  keystone 1.178  affine residual of the GT quads 2.4%
+combined   coke_unconstrained scale [0.755, 1.331]  rotation [-78.6, 80.3] deg  keystone 1.563  affine residual of the GT quads 9.3%
+
+coke_perspective: frame  homography   affine
+    0       0.34%    0.84%
+   16       0.54%    0.86%
+   32       0.57%    1.23%
+   48       0.68%    1.94%
+   64       0.43%    3.31%
+   80       0.47%    3.61%
+   96       0.54%    2.77%
+  112       0.23%    1.01%
+  128       0.45%    1.97%
+  144       0.31%    2.99%
+  160       0.88%    4.36%
+  176       0.78%    5.57%
+  192       0.54%    6.83%
+  208       1.53%    8.63%
+  224       1.52%   10.12%
+  240       2.14%   11.95%
+  256        inf%     inf%
+  272        inf%     inf%
+  288        inf%     inf%
+  304        inf%     inf%
+  320        inf%     inf%
+  336       2.50%   10.31%
+  352        inf%     inf%
+  368       1.07%    8.32%
+  384       0.42%    6.36%
+  400       0.34%    5.78%
+  416       0.98%    4.35%
+  432       0.57%    2.63%
+  448       0.52%    1.39%
+  464       2.37%    1.06%
+  480       0.76%    1.46%
+  496       0.88%    3.53%
+median corner error: homography 0.57%  affine 3.42%   success@2%: 72% vs 28%
+
+
+CELL 11
+A camera orbit changes depth across the poster. Perspective division makes opposite edges shrink by different amounts; an affine map preserves parallelism and cannot represent that keystone. A homography models a planar surface under this motion. Texture loss can still make its estimated fit fail.
+
+
+CELL 13
+Viewpoint 0->208, board: mean RGB difference 0.0958, 48321 supported pixels
+Viewpoint 0->208, background: mean RGB difference 0.0640, 106046 supported pixels
+
+
+CELL 13
+Camera translation gives different apparent motion to objects at different depths. The board homography aligns its plane; background residuals can contain parallax, lighting changes and registration error. The overlay uses only the board's coverage, so alignment of other depths is unnecessary.
+
+
+CELL 15
+80 tracked points, 6 valid; median |flow| 26.81 px
+
+
+CELL 17
+median |ours - cv2| over 6 points both consider valid: 9.071 px
+
+
+CELL 19
+independent    ok 66/70  reinits 70  jitter 2.25px  errors on annotated frames [0.41, 0.56, 0.39, 0.36]
+flow_assisted  ok 68/70  reinits 10  jitter 2.56px  errors on annotated frames [0.46, 0.59, 1.08, 1.37]
+
+
+CELL 19
+independent: 4 lost frames; reinitialisations at [170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239]
+flow_assisted: 2 lost frames; reinitialisations at [170, 171, 172, 197, 201, 202, 203, 206, 207, 237]
+
+
+CELL 21
+first non-OK flag: (43, ('REINIT', 'inlier_ratio'))
+Frozen settings unchanged; these are diagnostic plots.
+
+
+CELL 23
+run the two commands above first: outputs/stress_tables.md not found

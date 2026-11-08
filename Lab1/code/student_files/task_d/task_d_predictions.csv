@@ -1,0 +1,266 @@
+query_id,material,condition,query_image_path,support_labels,support_image_paths,exact_prompt,is_defective,predicted_label,confidence,evidence,raw_response,model,model_version,decoding_settings,run_date,conversation_reference
+Q1,carpet,D1,../../data/MVTec/carpet/test/color/001.png,,,"Inspect this surface image. Is anything visibly abnormal? Return JSON with
+is_defective, defect_name, confidence, and evidence. Use a Boolean for
+is_defective, a short free-form defect name if abnormal or ""good"" otherwise,
+confidence from 0 to 100 in your selected decision and name, and one sentence
+of visible evidence.",true,stain,98,There is a prominent dark smudge or stain visible on the lower-left section of the woven fabric surface.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""stain"",
+  ""confidence"": 98,
+  ""evidence"": ""There is a prominent dark smudge or stain visible on the lower-left section of the woven fabric surface.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D1/Q1); code/student_files/task_d/outputs/D1/JSONs.md (Q1)"
+Q2,grid,D1,../../data/MVTec/grid/test/broken/001.png,,,"Inspect this surface image. Is anything visibly abnormal? Return JSON with
+is_defective, defect_name, confidence, and evidence. Use a Boolean for
+is_defective, a short free-form defect name if abnormal or ""good"" otherwise,
+confidence from 0 to 100 in your selected decision and name, and one sentence
+of visible evidence.",true,bent wire,98,"Multiple sections of the metal mesh grid are visibly broken, bent, and deformed out of their standard geometric pattern.","{
+  ""is_defective"": true,
+  ""defect_name"": ""bent wire"",
+  ""confidence"": 98,
+  ""evidence"": ""Multiple sections of the metal mesh grid are visibly broken, bent, and deformed out of their standard geometric pattern.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D1/Q2); code/student_files/task_d/outputs/D1/JSONs.md (Q2)"
+Q3,leather,D1,../../data/MVTec/leather/test/cut/001.png,,,"Inspect this surface image. Is anything visibly abnormal? Return JSON with
+is_defective, defect_name, confidence, and evidence. Use a Boolean for
+is_defective, a short free-form defect name if abnormal or ""good"" otherwise,
+confidence from 0 to 100 in your selected decision and name, and one sentence
+of visible evidence.",true,cut,98,There is a visible dark slash or cut with exposed light fiber material located in the lower-left quadrant of the textured brown surface.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""cut"",
+  ""confidence"": 98,
+  ""evidence"": ""There is a visible dark slash or cut with exposed light fiber material located in the lower-left quadrant of the textured brown surface.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D1/Q3); code/student_files/task_d/outputs/D1/JSONs.md (Q3)"
+Q4,tile,D1,../../data/MVTec/tile/test/crack/001.png,,,"Inspect this surface image. Is anything visibly abnormal? Return JSON with
+is_defective, defect_name, confidence, and evidence. Use a Boolean for
+is_defective, a short free-form defect name if abnormal or ""good"" otherwise,
+confidence from 0 to 100 in your selected decision and name, and one sentence
+of visible evidence.",true,crack,100,A prominent Y-shaped dark crack spans across the speckled surface of the material.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""crack"",
+  ""confidence"": 100,
+  ""evidence"": ""A prominent Y-shaped dark crack spans across the speckled surface of the material.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D1/Q4); code/student_files/task_d/outputs/D1/JSONs.md (Q4)"
+Q5,wood,D1,../../data/MVTec/wood/test/scratch/001.png,,,"Inspect this surface image. Is anything visibly abnormal? Return JSON with
+is_defective, defect_name, confidence, and evidence. Use a Boolean for
+is_defective, a short free-form defect name if abnormal or ""good"" otherwise,
+confidence from 0 to 100 in your selected decision and name, and one sentence
+of visible evidence.",true,crack,95,A prominent vertical crack runs through the wood surface right of center.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""crack"",
+  ""confidence"": 95,
+  ""evidence"": ""A prominent vertical crack runs through the wood surface right of center.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D1/Q5); code/student_files/task_d/outputs/D1/JSONs.md (Q5)"
+Q1,carpet,D2,../../data/MVTec/carpet/test/color/001.png,,,"Inspect the attached query image. The material is carpet.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+cut: A sharp incision or sliced region interrupts the texture.
+hole: Material is missing in a compact hole-like region.
+metal_contamination: A metallic foreign object lies on the surface.
+thread: A foreign thread lies across the regular texture.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.",true,color,95,There is a localized dark brownish stain/discoloration in the lower-left section of the woven carpet texture.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""color"",
+  ""confidence"": 95,
+  ""evidence"": ""There is a localized dark brownish stain/discoloration in the lower-left section of the woven carpet texture.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D2/Q1); code/student_files/task_d/outputs/D2/JSONs.md (Q1)"
+Q2,grid,D2,../../data/MVTec/grid/test/broken/001.png,,,"Inspect the attached query image. The material is grid.
+Allowed defect labels and definitions:
+bent: The regular grid lines are locally warped or displaced.
+broken: Part of the repeating grid is interrupted or missing.
+glue: A localized glue deposit changes the surface appearance.
+metal_contamination: A metallic foreign object lies on the surface.
+thread: A foreign thread lies across the regular texture.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.",true,broken,98,"Multiple segments of the wire grid structure are severed and fractured, leaving broken ends interrupting the uniform lattice pattern.","{
+  ""is_defective"": true,
+  ""defect_name"": ""broken"",
+  ""confidence"": 98,
+  ""evidence"": ""Multiple segments of the wire grid structure are severed and fractured, leaving broken ends interrupting the uniform lattice pattern.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D2/Q2); code/student_files/task_d/outputs/D2/JSONs.md (Q2)"
+Q3,leather,D2,../../data/MVTec/leather/test/cut/001.png,,,"Inspect the attached query image. The material is leather.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+cut: A sharp incision or sliced region interrupts the texture.
+fold: The surface is creased or folded out of its normal plane.
+glue: A localized glue deposit changes the surface appearance.
+poke: A small puncture-like indentation or opening is visible.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.",true,cut,95,A sharp incision and slice interrupt the leather texture in the lower-left central quadrant.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""cut"",
+  ""confidence"": 95,
+  ""evidence"": ""A sharp incision and slice interrupt the leather texture in the lower-left central quadrant.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D2/Q3); code/student_files/task_d/outputs/D2/JSONs.md (Q3)"
+Q4,tile,D2,../../data/MVTec/tile/test/crack/001.png,,,"Inspect the attached query image. The material is tile.
+Allowed defect labels and definitions:
+crack: A narrow fracture-like line crosses the material surface.
+glue_strip: An elongated strip of adhesive lies on the tile.
+gray_stroke: A grey linear mark appears across the tile.
+oil: An oily region changes colour or reflectance.
+rough: A localized patch is visibly rougher than normal.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.",true,crack,100,"A clear, branching dark fracture line crosses the surface of the tile.","{
+  ""is_defective"": true,
+  ""defect_name"": ""crack"",
+  ""confidence"": 100,
+  ""evidence"": ""A clear, branching dark fracture line crosses the surface of the tile.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D2/Q4); code/student_files/task_d/outputs/D2/JSONs.md (Q4)"
+Q5,wood,D2,../../data/MVTec/wood/test/scratch/001.png,,,"Inspect the attached query image. The material is wood.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+combined: More than one defect mechanism appears in the same image.
+hole: Material is missing in a compact hole-like region.
+liquid: A liquid stain changes colour or reflectance locally.
+scratch: A thin elongated abrasion crosses the surface.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.",true,scratch,95,"A long, continuous vertical line/abrasion is visible cutting through the wood grain pattern slightly to the right of center.","{
+  ""is_defective"": true,
+  ""defect_name"": ""scratch"",
+  ""confidence"": 95,
+  ""evidence"": ""A long, continuous vertical line/abrasion is visible cutting through the wood grain pattern slightly to the right of center.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D2/Q5); code/student_files/task_d/outputs/D2/JSONs.md (Q5)"
+Q1,carpet,D3,../../data/MVTec/carpet/test/color/001.png,color;cut;hole;metal_contamination;thread,../../data/MVTec/carpet/test/color/000.png;../../data/MVTec/carpet/test/cut/000.png;../../data/MVTec/carpet/test/hole/000.png;../../data/MVTec/carpet/test/metal_contamination/000.png;../../data/MVTec/carpet/test/thread/000.png,"Inspect the attached query image. The material is carpet.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+cut: A sharp incision or sliced region interrupts the texture.
+hole: Material is missing in a compact hole-like region.
+metal_contamination: A metallic foreign object lies on the surface.
+thread: A foreign thread lies across the regular texture.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: color
+Support image 2: cut
+Support image 3: hole
+Support image 4: metal_contamination
+Support image 5: thread
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.",true,color,95,"There is a localized, dark discolored stain/patch near the lower-left section of the woven carpet texture.","{
+  ""is_defective"": true,
+  ""defect_name"": ""color"",
+  ""confidence"": 95,
+  ""evidence"": ""There is a localized, dark discolored stain/patch near the lower-left section of the woven carpet texture.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D3/Q1); code/student_files/task_d/outputs/D3/JSONs.md (Q1)"
+Q2,grid,D3,../../data/MVTec/grid/test/broken/001.png,bent;broken;glue;metal_contamination;thread,../../data/MVTec/grid/test/bent/000.png;../../data/MVTec/grid/test/broken/000.png;../../data/MVTec/grid/test/glue/000.png;../../data/MVTec/grid/test/metal_contamination/000.png;../../data/MVTec/grid/test/thread/000.png,"Inspect the attached query image. The material is grid.
+Allowed defect labels and definitions:
+bent: The regular grid lines are locally warped or displaced.
+broken: Part of the repeating grid is interrupted or missing.
+glue: A localized glue deposit changes the surface appearance.
+metal_contamination: A metallic foreign object lies on the surface.
+thread: A foreign thread lies across the regular texture.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: bent
+Support image 2: broken
+Support image 3: glue
+Support image 4: metal_contamination
+Support image 5: thread
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.",true,bent,98,Multiple regular wire strands of the grid structure are locally warped and bent out of shape across the surface.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""bent"",
+  ""confidence"": 98,
+  ""evidence"": ""Multiple regular wire strands of the grid structure are locally warped and bent out of shape across the surface.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D3/Q2); code/student_files/task_d/outputs/D3/JSONs.md (Q2)"
+Q3,leather,D3,../../data/MVTec/leather/test/cut/001.png,color;cut;fold;glue;poke,../../data/MVTec/leather/test/color/000.png;../../data/MVTec/leather/test/cut/000.png;../../data/MVTec/leather/test/fold/000.png;../../data/MVTec/leather/test/glue/000.png;../../data/MVTec/leather/test/poke/000.png,"Inspect the attached query image. The material is leather.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+cut: A sharp incision or sliced region interrupts the texture.
+fold: The surface is creased or folded out of its normal plane.
+glue: A localized glue deposit changes the surface appearance.
+poke: A small puncture-like indentation or opening is visible.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: color
+Support image 2: cut
+Support image 3: fold
+Support image 4: glue
+Support image 5: poke
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.",true,cut,95,A sharp incision and slice interrupt the leather texture in the lower-left central portion of the surface.,"{
+  ""is_defective"": true,
+  ""defect_name"": ""cut"",
+  ""confidence"": 95,
+  ""evidence"": ""A sharp incision and slice interrupt the leather texture in the lower-left central portion of the surface.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D3/Q3); code/student_files/task_d/outputs/D3/JSONs.md (Q3)"
+Q4,tile,D3,../../data/MVTec/tile/test/crack/001.png,crack;glue_strip;gray_stroke;oil;rough,../../data/MVTec/tile/test/crack/000.png;../../data/MVTec/tile/test/glue_strip/000.png;../../data/MVTec/tile/test/gray_stroke/000.png;../../data/MVTec/tile/test/oil/000.png;../../data/MVTec/tile/test/rough/000.png,"Inspect the attached query image. The material is tile.
+Allowed defect labels and definitions:
+crack: A narrow fracture-like line crosses the material surface.
+glue_strip: An elongated strip of adhesive lies on the tile.
+gray_stroke: A grey linear mark appears across the tile.
+oil: An oily region changes colour or reflectance.
+rough: A localized patch is visibly rougher than normal.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: crack
+Support image 2: glue_strip
+Support image 3: gray_stroke
+Support image 4: oil
+Support image 5: rough
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.",true,crack,98,"A prominent dark, Y-shaped fracture line splits and crosses the tile surface.","{
+  ""is_defective"": true,
+  ""defect_name"": ""crack"",
+  ""confidence"": 98,
+  ""evidence"": ""A prominent dark, Y-shaped fracture line splits and crosses the tile surface.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D3/Q4); code/student_files/task_d/outputs/D3/JSONs.md (Q4)"
+Q5,wood,D3,../../data/MVTec/wood/test/scratch/001.png,color;combined;hole;liquid;scratch,../../data/MVTec/wood/test/color/000.png;../../data/MVTec/wood/test/combined/000.png;../../data/MVTec/wood/test/hole/000.png;../../data/MVTec/wood/test/liquid/000.png;../../data/MVTec/wood/test/scratch/000.png,"Inspect the attached query image. The material is wood.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+combined: More than one defect mechanism appears in the same image.
+hole: Material is missing in a compact hole-like region.
+liquid: A liquid stain changes colour or reflectance locally.
+scratch: A thin elongated abrasion crosses the surface.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or ""good"" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: color
+Support image 2: combined
+Support image 3: hole
+Support image 4: liquid
+Support image 5: scratch
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.",false,good,95,"The wood surface exhibits normal wood grain texture and vertical natural fissures without any color spots, holes, liquid stains, or abrasion scratches.","{
+  ""is_defective"": false,
+  ""defect_name"": ""good"",
+  ""confidence"": 95,
+  ""evidence"": ""The wood surface exhibits normal wood grain texture and vertical natural fissures without any color spots, holes, liquid stains, or abrasion scratches.""
+}",Gemini Flash,3.6,unavailable,2026-10-06,"code/notebooks/04_personal_photo_and_vlm_analysis.ipynb (cell id 504324a6, D3/Q5); code/student_files/task_d/outputs/D3/JSONs.md (Q5)"

@@ -1,0 +1,16 @@
+query_id,material,condition,true_label,true_is_defective,predicted_label,is_defective,confidence,evidence,binary_correct,exact_label_correct,outside_supplied_vocabulary,vocabulary_violation,decision_label_consistent
+Q1,carpet,D1,color,True,stain,True,98.0,There is a prominent dark smudge or stain visible on the lower-left section of the woven fabric surface.,True,False,True,False,True
+Q2,grid,D1,broken,True,bent wire,True,98.0,"Multiple sections of the metal mesh grid are visibly broken, bent, and deformed out of their standard geometric pattern.",True,False,True,False,True
+Q3,leather,D1,cut,True,cut,True,98.0,There is a visible dark slash or cut with exposed light fiber material located in the lower-left quadrant of the textured brown surface.,True,True,False,False,True
+Q4,tile,D1,crack,True,crack,True,100.0,A prominent Y-shaped dark crack spans across the speckled surface of the material.,True,True,False,False,True
+Q5,wood,D1,scratch,True,crack,True,95.0,A prominent vertical crack runs through the wood surface right of center.,True,False,True,False,True
+Q1,carpet,D2,color,True,color,True,95.0,There is a localized dark brownish stain/discoloration in the lower-left section of the woven carpet texture.,True,True,False,False,True
+Q2,grid,D2,broken,True,broken,True,98.0,"Multiple segments of the wire grid structure are severed and fractured, leaving broken ends interrupting the uniform lattice pattern.",True,True,False,False,True
+Q3,leather,D2,cut,True,cut,True,95.0,A sharp incision and slice interrupt the leather texture in the lower-left central quadrant.,True,True,False,False,True
+Q4,tile,D2,crack,True,crack,True,100.0,"A clear, branching dark fracture line crosses the surface of the tile.",True,True,False,False,True
+Q5,wood,D2,scratch,True,scratch,True,95.0,"A long, continuous vertical line/abrasion is visible cutting through the wood grain pattern slightly to the right of center.",True,True,False,False,True
+Q1,carpet,D3,color,True,color,True,95.0,"There is a localized, dark discolored stain/patch near the lower-left section of the woven carpet texture.",True,True,False,False,True
+Q2,grid,D3,broken,True,bent,True,98.0,Multiple regular wire strands of the grid structure are locally warped and bent out of shape across the surface.,True,False,False,False,True
+Q3,leather,D3,cut,True,cut,True,95.0,A sharp incision and slice interrupt the leather texture in the lower-left central portion of the surface.,True,True,False,False,True
+Q4,tile,D3,crack,True,crack,True,98.0,"A prominent dark, Y-shaped fracture line splits and crosses the tile surface.",True,True,False,False,True
+Q5,wood,D3,scratch,True,good,False,95.0,"The wood surface exhibits normal wood grain texture and vertical natural fissures without any color spots, holes, liquid stains, or abrasion scratches.",False,False,False,False,True

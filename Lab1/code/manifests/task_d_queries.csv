@@ -1,0 +1,6 @@
+id,path,material,allowed_defects
+Q1,../../data/MVTec/carpet/test/color/001.png,carpet,color;cut;hole;metal_contamination;thread
+Q2,../../data/MVTec/grid/test/broken/001.png,grid,bent;broken;glue;metal_contamination;thread
+Q3,../../data/MVTec/leather/test/cut/001.png,leather,color;cut;fold;glue;poke
+Q4,../../data/MVTec/tile/test/crack/001.png,tile,crack;glue_strip;gray_stroke;oil;rough
+Q5,../../data/MVTec/wood/test/scratch/001.png,wood,color;combined;hole;liquid;scratch

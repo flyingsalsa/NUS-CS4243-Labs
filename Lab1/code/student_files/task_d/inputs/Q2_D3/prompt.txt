@@ -1,0 +1,21 @@
+Inspect the attached query image. The material is grid.
+Allowed defect labels and definitions:
+bent: The regular grid lines are locally warped or displaced.
+broken: Part of the repeating grid is interrupted or missing.
+glue: A localized glue deposit changes the surface appearance.
+metal_contamination: A metallic foreign object lies on the surface.
+thread: A foreign thread lies across the regular texture.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or "good" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: bent
+Support image 2: broken
+Support image 3: glue
+Support image 4: metal_contamination
+Support image 5: thread
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.

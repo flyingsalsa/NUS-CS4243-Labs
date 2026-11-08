@@ -1,0 +1,199 @@
+# CS4243 Lab 2 report
+
+This compact report records how every `YOUR CODE HERE` section is exercised. Elaborate on your implementation and the results you observed; add figures, plots and grounded reasoning that show your understanding. Every reported number must name its clip (common / viewpoint / scale / blur / exit / combined / your clip), frame subset (validation / test / audit) and method variant, and must come from `overlaylab.metrics` or `overlaylab.evaluate`. Thresholds are frozen on the common clip's validation frames; each Stage's **stress table** (`python -m overlaylab.report`, `outputs/stress_tables.md`) reports the common clip (validation and test) and the Stage's two stress clips with that frozen configuration. Paste the generated table into the Stage's section unchanged and explain the row the Stage's question points at; the other rows need no interpretation.
+
+**Suggested run order for Stages 1-3** (PDF pp. 3-8, 12-14; commands run from `code/` with the project virtual environment selected):
+
+- Run `python -m unittest discover -s tests -v`. Tests check implementation correctness; the report also needs notebook figures, videos, generated tables and your interpretation.
+- Run Notebooks **01 -> 02 -> 03**, restarting the kernel for each and saving useful outputs. Notebook 1 hands settings to Notebook 2; Notebook 2 freezes Stages 1-2, and Notebook 3 freezes Stage 3 in `outputs/thresholds.json`. Choose settings on common validation/synthetic data only, before test/stress reporting. Validation means even **annotation-row index**, not even frame number.
+- Distinguish the notebooks' **640-pixel previews** from final **native-resolution** results. If choosing settings for native resolution, use native-resolution common validation data. Do not adjust earlier stages after seeing later test/stress results.
+- After all stages are frozen, run `python -m overlaylab.run_pipeline --all --thresholds outputs/thresholds.json`, then `python -m overlaylab.report`. Omit `--width` and `--max-frames` for final runs. Keep the eight MP4s, matching `_stats.json` and `_masks/` outputs, `outputs/evaluation/` reports, and `outputs/stress_tables.md` / `.json`. Paste each generated table unchanged into the corresponding section below.
+- The table builder evaluates the four Stage 3 videos. Complete the remaining video reports with these commands:
+
+```powershell
+python -m overlaylab.evaluate --video outputs/videos/common_clip_independent.mp4
+python -m overlaylab.evaluate --video outputs/videos/coke_scale_flow_assisted.mp4 --clip coke_scale
+python -m overlaylab.evaluate --video outputs/videos/coke_blur_flow_assisted.mp4 --clip coke_blur
+
+python -m overlaylab.evaluate --video outputs/videos/coke_out_of_view_flow_assisted.mp4 --clip coke_out_of_view
+```
+
+- Treat the bullets below as writing/evidence suggestions, not completed findings. Replace them with your measured results and explanations; identify clip, frame indices/subset, method and processing resolution in every caption. The full-resolution runs and additional diagnostic experiments are separate from the implementation tests and preview notebook checks. [AI-DESIGN] [AI-LANGUAGE]
+
+## Stage 1 — Localise
+<!-- harris_response, detect_corners, describe_keypoints, match_descriptors; bilinear_sample, normalise_points, dlt_homography, symmetric_transfer_error, ransac_homography, transfer_points, warp_artwork; localise_board, artwork_to_frame, overlay_frame, evaluate_audit_frames; frozen success threshold -->
+
+**Keypoint detection and matching** ([keypoints.py](overlaylab/keypoints.py)):
+
+- `harris_response` computes Sobel image gradients and Gaussian-smooths their products to form the second-moment matrix. It returns the Harris score `det(M) - kappa * trace(M)^2`, which is high where intensity changes strongly in two directions.
+- `detect_corners` removes weak, non-positive and border responses, then applies non-maximum suppression. Window mode keeps neighbourhood maxima; radius mode greedily keeps the strongest corner and suppresses nearby candidates. The remaining corners are returned in decreasing score order, up to `max_corners`.
+- `describe_keypoints` samples gradients on a 16 × 16 grid and estimates a dominant orientation from a magnitude-weighted histogram. It rotates the sampling grid, measures gradient directions relative to that orientation, and builds 4 × 4 spatial histograms with 8 bins each, producing a 128-D descriptor. Gaussian weighting, L2 normalisation, clamping and renormalisation reduce sensitivity to strong gradients; windows leaving the image are discarded.
+- `match_descriptors` calculates pairwise Euclidean distances and accepts a nearest-neighbour match only when its distance divided by the second-nearest distance passes the ratio test. Optional mutual matching also requires the reverse nearest neighbour to agree; the saved configuration uses `ratio = 0.8` and `mutual = false`.
+
+**Geometry and warping** ([geometry.py](overlaylab/geometry.py)): points use `(x, y) = (column, row)`, with integer pixel centres.
+
+- `bilinear_sample` clamps sampling coordinates to the image boundary and interpolates the four neighbouring pixels using their horizontal and vertical distances. It supports grayscale and colour images; its arguments take `y` before `x`.
+- `normalise_points` performs Hartley normalisation: subtract the centroid and scale the points so their mean distance from the origin is √2. It returns both the transformed points and the similarity matrix, improving numerical conditioning for homography estimation.
+- `dlt_homography` normalises both point sets, builds the `2N × 9` DLT system and uses SVD to obtain the homography from the final right singular vector. It then undoes normalisation and rescales the matrix, rejecting rank-deficient or invalid solutions.
+- `symmetric_transfer_error` adds the squared forward projection error through `H` and backward projection error through `H⁻¹` for each match. Singular transforms or invalid projections receive infinite error.
+- `ransac_homography` repeatedly samples four matches, rejects samples with nearly collinear triples in either image, fits a DLT homography and counts inliers using symmetric transfer error. It selects the largest consensus, breaks ties by summed inlier error, adapts the iteration limit to the inlier fraction, then refits on all selected inliers and recomputes membership. The saved settings use seed 0, confidence 0.995, at most 2000 iterations, an inlier threshold of 9 squared pixels and at least 12 inliers.
+- `transfer_points` converts points to homogeneous coordinates, applies `H` and divides by the final coordinate to recover `(x, y)`. Points with a near-zero denominator return NaN coordinates.
+- `warp_artwork` inverse-maps frame pixels through `H⁻¹` into the artwork and samples valid locations bilinearly. It returns the warped image and a Boolean coverage mask, leaving uncovered pixels zero.
+
+**Localisation and overlay** ([localisation.py](overlaylab/localisation.py)):
+
+- `localise_board` converts the reference and frame to grayscale, detects and describes their corners, matches descriptors and estimates the board-to-frame homography with RANSAC. It projects the reference's four corners and returns match/inlier diagnostics; failed localisation returns no homography and NaN corners.
+- `artwork_to_frame` first scales the artwork rectangle to the reference-board rectangle, then composes the transforms as `H_artwork_to_frame = H_board_to_frame @ H_artwork_to_board`. If no reference shape is configured, it uses the artwork's dimensions.
+- `overlay_frame` converts uint8 inputs to floating-point intensities in `[0, 1]`, warps the artwork using the composed transform and replaces frame pixels wherever coverage is true. This Stage 1 overlay does not handle occlusions.
+- `evaluate_audit_frames` independently localises each annotated frame available in the supplied images, records its corner error and diagnostics, and calls `metrics.summarise_errors` for the aggregate results. Failed localisations have infinite corner error and count as unsuccessful; annotations without supplied images are skipped.
+
+**Frozen success threshold:** [thresholds.json](outputs/thresholds.json) stores `success_threshold = 0.02`. As recorded in the [Notebook 2 log](student_files/02_localisation_and_temporal_check.log), this is a fixed application tolerance of 2% of the board diagonal, retained after common-validation inspection. A frame succeeds when its mean predicted-to-annotated corner distance, divided by the longer annotated diagonal, is at most 0.02. Normalisation makes the criterion comparable across board sizes and resolutions. This evaluation threshold is separate from RANSAC's match-level inlier threshold and remains fixed for subsequent test/stress evaluation. 
+
+
+
+
+
+**Suggested runs and report evidence** (PDF pp. 3-5):
+
+- **Run:** Notebook 1 for keypoints/geometry and Notebook 2 sections 2-6 for localisation, worst cases and model comparisons. The parameter sweeps, DLT-conditioning and RANSAC-iteration studies support development; they are not extra report questions.
+- **Explain the keypoint branch:** Harris second moments, window versus radius NMS, dominant-orientation 128-D descriptors, normalisation/clamping and ratio-test matching. State whether mutual matching was enabled; cite a corner plot and match visualisation.
+- **Explain the geometry branch:** Hartley normalisation, DLT/SVD, degenerate samples, symmetric transfer error, adaptive RANSAC and inlier refitting. State `(x, y) = (column, row)`, integer pixel centres and inverse bilinear warping; include the checkerboard sanity check. Explain `H_artwork_to_frame = H_board_to_frame @ H_artwork_to_board` and show a single-frame overlay.
+- **Include localisation evidence:** record the frozen settings/seed and success-threshold rationale. Show inlier count **and ratio** versus frame index, RANSAC versus least-squares on the same ratio-test matches, and the two worst test frames with matches, residual histograms and projected quadrilaterals. If fewer than two fail the frozen threshold, say so rather than manufacturing failures. [AI-DESIGN] [AI-LANGUAGE]
+
+### Stress table (Stage 1)
+<!-- generated rows: common · validation, common · test, viewpoint, scale — median / p90 corner error, success at the frozen threshold, inliers, inlier ratio, affine median error / success -->
+
+Generated by `python -m overlaylab.report --stages 1 --thresholds outputs/thresholds.json --out student_files/stage1_stress_tables.md`, using the frozen settings at **native resolution**. Source: [generated table](student_files/stage1_stress_tables.md) and [per-frame results](student_files/stage1_stress_tables.json).
+
+| row | frames | median err | p90 err | success | inliers (median) | inlier ratio | affine median err | affine success |
+|---|---|---|---|---|---|---|---|---|
+| common · validation | 13 | 0.42% | 0.65% | 85% | 87 | 0.850 | 0.78% | 77% |
+| common · test | 13 | 0.40% | 0.54% | 92% | 88 | 0.879 | 0.84% | 85% |
+| viewpoint (coke_perspective) | 32 | 0.46% | 0.94% | 56% | 16 | 0.647 | 3.69% | 16% |
+| scale (coke_scale) | 32 | 0.38% | 1.99% | 22% | 4 | 0.500 | 0.66% | 25% |
+
+`localise_board` on every annotated frame with the frozen configuration; *affine* = 6-parameter least-squares fit to the same RANSAC inliers.
+
+
+### Question 1 — Matching
+<!-- a frame pair on the viewpoint or scale clip where the matching rate collapses; rotation absorbed by the dominant orientation vs viewpoint / scale not absorbed; which descriptor component fails; the labelled SIFT cell -->
+
+On the **scale clip (`coke_scale`), stress/test annotations, 640-pixel preview**, I selected the fixed rectified reference and **frame 400** as the failing pair. With the frozen custom detector/descriptor and ratio test, matching rate (accepted matches / reference descriptors) falls from **170/349 = 48.7%** at frame 80 to **1/349 = 0.29%** at frame 400. These are descriptor matches before RANSAC, not verified geometric inliers. The [matching-rate plot](student_files/question1/matching_rates.png), [frame-80 matches](student_files/question1/best_matches.png), [frame-400 matches](student_files/question1/worst_matches.png) and [recorded counts](student_files/question1/matching.json) document this collapse.
+
+The failing component is the descriptor's **fixed spatial sampling scale**. Every keypoint uses a 16 × 16 grid at the same `patch_scale`, divided into fixed spatial cells. As the board becomes smaller, that window covers a larger physical part of the poster: corresponding edges move between cells and fine detail disappears. The resulting gradient histograms differ, so the ratio test rejects most candidates. Changing viewpoint also introduces foreshortening and unequal stretching across the patch, which a single rotation cannot undo.
+
+Dominant-orientation normalisation absorbs **in-plane rotation** by rotating the sampling grid and expressing gradient directions relative to the dominant direction. Keypoint-centred windows also accommodate image translation. Orientation normalisation does not compensate for changes in scale, out-of-plane tilt or general perspective distortion; blur, occlusion and unstable dominant directions can still damage matching.
+
+The **native-resolution scale row**, evaluated with frozen `localise_board` on all 32 stress/test annotations, has only **22% success** at the 2% corner-error threshold and a median of **4 inliers**. Its **0.38% median corner error** describes only finite estimates: it does not mean localisation works reliably throughout the clip. The reference stays at a fixed size while the board's apparent size changes, so a descriptor without automatic scale selection works over a limited scale range and often leaves too few correspondences to estimate a homography.
+
+For comparison, I reused the SIFT baseline definition from **Notebook 1's labelled SIFT cell**, with the same 0.8 ratio test, on the same scale-clip reference/frame pairs at 640-pixel width. SIFT's matching rate is **58.5%** at frame 80 and **11.1%** at frame 400, versus **48.7%** and **0.29%** for the custom method. SIFT detects features in scale space and describes them at their selected scales, explaining its greater robustness to this size change. It still loses matches, and it is not fully invariant to general viewpoint changes. Since SIFT also uses its own detector and reference keypoints, these rates compare the two feature pipelines rather than isolating the descriptor alone. [AI-LANGUAGE]
+
+
+### Question 2 — Geometry
+<!-- the affine column on the viewpoint clip: why the affine fit breaks as the camera orbits, related to the keystone; whole-frame warp and parallax; why parallax does not harm the overlay and one capture condition under which it would -->
+
+As the camera orbits the poster in **`coke_perspective`**, its orientation and position relative to the poster change. The near and far sides have different camera depths, so perspective division produces unequal apparent scale across the board and a keystone shape. An affine transformation preserves parallel lines and cannot reproduce that projective convergence. A homography includes the perspective terms needed to map one view of a flat board to another.
+
+The **native-resolution viewpoint row**, using frozen settings on all 32 stress/test annotations, supports this distinction: homography median normalised corner error is **0.46%**, compared with **3.69%** for affine, and success at 2% is **56% versus 16%**. Both models use the same RANSAC inliers, so affine's additional error reflects its restricted geometry. For example, at viewpoint frame **224**, their errors are **1.15% and 9.92%**, respectively. Homography's 56% success also shows that the correct model cannot compensate for insufficient or unreliable feature matches.
+
+The saved **Notebook 2, Section 6** experiment warps viewpoint frame **0 into frame 208** at **640-pixel preview resolution**, using `H_0_to_208 = H_board_to_208 @ inv(H_board_to_0)`. The [target, warped frame and absolute-difference panels](student_files/question2/viewpoint_whole_frame_warp.png) show the poster brought into approximate alignment while the surrounding scene retains residual differences. In particular, the brick-wall boundary is displaced. Residual colour differences alone are not proof of parallax: illumination changes, resampling and localisation error also contribute.
+
+The geometric reason for **parallax** is that the board homography assumes every point lies on the board's plane. Under camera translation, a point in front of or behind that plane moves differently and is mapped to the wrong location; the residual generally grows with departure from the plane and with translation. Pure rotation about the camera centre does not produce this depth-dependent translational parallax.
+
+This does not harm artwork placement because the overlay is warped only onto the **planar board**, and the original background pixels outside its coverage are retained. No background alignment is required. It would harm placement if the poster were **bent or wrapped around a curved surface while the camera translates**: different parts of the intended overlay would lie off the fitted plane, causing local slipping that one homography cannot remove. A foreground object crossing the board also needs separate occlusion handling to preserve the correct visibility order. [AI-LANGUAGE]
+
+
+**Suggested answer/evidence:**
+
+- Run Notebook 2 section 5: fit affine and homography models using the **same RANSAC inliers**. Include corner-error plots or overlaid quadrilaterals; relate the viewpoint table's affine error to camera orbit and keystone/opposite-edge length ratios.
+- Run section 6's labelled whole-frame `cv2.warpPerspective` comparison on two viewpoint frames. Include target, warped frame and difference panels. Explain board-plane alignment versus background parallax, why restricting artwork to the planar board avoids that background error, and one condition that breaks this protection, such as a bent surface under camera translation. Keep this library warp in the labelled comparison cell. [AI-DESIGN] [AI-LANGUAGE]
+
+## Stage 2 — Track
+<!-- lk_flow, track_board (both variants on the common clip), failure_monitor; jitter and drift; frozen monitor thresholds -->
+
+**Suggested runs and report evidence** (PDF pp. 5-7):
+
+- **Run:** Notebook 2 sections 7-9 for LK vectors/eigenvalues, both temporal variants, drift and monitor timelines. Choose flow, reinitialisation and monitor settings on validation/synthetic data before freezing in section 2; record values and rationale in the report and `outputs/thresholds.json`.
+- **Explain the implementation:** iterative LK window sampling, eigenvalues, residuals and all validity checks; independent registration versus flow-assisted propagation/refitting; actual reinitialisation conditions; and `OK` / `REINIT` / `HIDE` policy precedence and trigger names. Compare projected corners/errors, not homography matrix entries.
+- **Retain final artifacts:** both common-clip variants and the blur, exit and combined flow-assisted videos with their `_stats.json` files. The combined run supplies Question 3 evidence even though its table row belongs to Stage 3. The shared commands above generate/evaluate these outputs.
+- **Show contrasting sequences:** identify where flow stabilises the overlay and where it fails, using frames/timestamps, vectors/validity, drift plots and monitor timelines. Report honestly if your measurements show no improvement. OpenCV pyramidal LK or RAFT comparisons are optional and belong only in Notebook 2's labelled comparison cell; they do not replace your assessed flow implementation. [AI-DESIGN] [AI-LANGUAGE]
+
+### Stress table (Stage 2)
+<!-- generated rows: common · validation / test for both variants, blur, exit — corner metrics, jitter, drift, frames tracked, REINIT / HIDE counts -->
+
+**Suggested table checklist:**
+
+- Paste the generated six-row Stage 2 table: common validation/test for **both variants**, then blur and exit with flow-assisted tracking. Read corner error/success alongside jitter, drift, longest interval without reinitialisation, tracked frames, actual `(re)localisations`, `REINIT` flags and `HIDE` counts.
+- Explain the accounting: jitter subtracts interpolated ground-truth motion and uses all available clip annotations, so common validation/test values repeat. Drift summarises errors at least 16 frames after reinitialisation; unavailable drift is not zero. `tracked` means status `ok` and may include hidden frames; a `REINIT` flag is a monitor request, not necessarily an actual localiser call. [AI-DESIGN] [AI-LANGUAGE]
+
+### Question 3 — Tracking
+<!-- flicker (independent) vs drift (flow-assisted); eigenvalues: aperture vs brightness constancy, where each kind lies on the board (blur clip); monitor timeline of the combined clip: which statistic fired first at the card crossing and at the fast rotation, occlusion vs drift; what the exit clip's HIDE / REINIT sequence shows -->
+
+
+**Suggested answer/evidence:**
+
+- **Common clip:** compare both variants' measured jitter, drift and reinitialisation counts. Use corner error versus frames since last reinitialisation to explain flicker versus accumulated drift, without assuming either variant wins.
+- **Blur clip:** run LK diagnostics on consecutive `coke_blur` frames with frozen settings. Plot point locations, both eigenvalues, residuals and validity; distinguish small-second-eigenvalue/aperture failures on edges from brightness-constancy failures with large residuals. The common-clip example alone does not answer this part.
+- **Combined clip:** load `coke_unconstrained_flow_assisted_stats.json` using `overlaylab.pipelines.load_stats` and plot `viz.plot_monitor_timeline`. Mark card crossings at frames **210-222 and 302-314** plus an observed fast-rotation interval. Name the first triggering statistic/frame for each, and use motion, inlier ratio, residual/brightness evidence and the images to explain occlusion versus drift.
+- **Exit clip:** show departure/re-entry frames and its monitor timeline; explain `HIDE` / `REINIT`, reference-based reacquisition without ground truth, and any premature painting or delayed recovery. The real-clip evidence is required even though Notebook 2 section 10's extra plotting cell is an optional place to implement it. Link exact figures/frame indices in the evidence table. [AI-DESIGN] [AI-LANGUAGE]
+
+## Stage 3 — Composite
+<!-- hysteresis, compensated_difference, occlusion_mask, select_difference_thresholds, composite; frozen difference thresholds; no-occlusion baseline -->
+
+**Suggested runs and report evidence** (PDF pp. 7-8):
+
+- **Run:** Notebook 3 after Notebook 2. Sections 2-3 inspect the difference map and search `strong`, `weak` and `min_area` on the **three common validation masks only**. Keep the search results, selected values and tie-breaking rationale. The implementation selects a strong threshold near the midpoint of a tied best-score plateau.
+- **Explain the implementation:** gain/offset fitting on agreeing pixels, colour difference, strong seeds and connected weak pixels, disc opening, component-area filtering, and `alpha = coverage * (1 - occlusion) * feathering`. State whether brightness matching is enabled. Record `min_area` in original-video pixels; distinguish other fixed pixel parameters from this explicitly rescaled area.
+- **Include evidence:** section 4's test-mask IoU, F1, boundary F1 and alpha leakage against the no-occlusion baseline. Show original, difference, mask, alpha and composites with/without occlusion handling. Show boundary behaviour on **both a common and a combined crossing**, and explain one error using difference maps, component statistics or flow.
+- **Retain final artifacts:** the common flow-assisted and no-occlusion pair, combined and viewpoint videos, corresponding statistics/masks and evaluator reports. Generate these with the shared full-resolution commands after all thresholds are frozen. Preview figures and test/stress diagnostics must not become a reason to retune. [AI-DESIGN] [AI-LANGUAGE]
+
+### Stress table (Stage 3)
+<!-- generated rows: common · validation / test, combined, viewpoint — mask IoU / F1 / leakage, baseline leakage (common), false occlusion (viewpoint) -->
+
+**Suggested table checklist:**
+
+- Paste the generated four-row Stage 3 table: common validation/test, combined (`coke_unconstrained`) and viewpoint (`coke_perspective`). Retain mask IoU/F1, finished-video leakage, common baseline leakage, viewpoint false occlusion and scored/hidden/missing counts.
+- Quote coverage/counts with leakage: hiding all artwork can produce zero leakage. Finished-video false occlusion is `1 - visible-board coverage` on eligible empty-mask frames, a pixel-change proxy also affected by feathering, resampling and similar artwork colours. Distinguish it from Notebook 3's direct false-mask fraction and alpha leakage.
+- Label every Notebook 3 section 6 fallback as **`GT-fallback`**, identify its frames/count and explain that manifest corners supplied the evaluation-only homography. Never put fallback predictions into tracking, submitted videos or generated stress tables; keep supplementary fallback/preview numbers separate. [AI-DESIGN] [AI-LANGUAGE]
+
+### Question 4 — Occlusion
+<!-- which occluders differencing recovers and which stay ambiguous; effect of the strong threshold and the minimum area; why hysteresis matters for thin occluders and why opening works against it (thinnest occluder that survives the frozen open_radius; what the radius buys over radius 0 on the validation masks); why the viewpoint clip produces false occlusion under strong perspective with a correct homography, and which part of the differencing is responsible -->
+
+
+**Suggested answer/evidence:**
+
+- Discuss an occluder coloured like the board, a shadow, a specular highlight and an occluder that stops moving. Explain each through appearance differences against the warped reference; stopping alone does not remove that difference.
+- Run section 5's **validation-only** comparisons for higher strong threshold, larger minimum area and disabled hysteresis (`weak = strong`). Show resulting masks/components and leakage; explain changes using measured results, including lost weak boundaries or small foreground regions.
+- **Add the opening experiment:** compare the frozen `open_radius` with radius 0 on validation masks, keeping other settings fixed, to show what noise suppression it buys. Use a validation/synthetic thin-occluder example to show the thinnest structure surviving at the stated resolution. Explain how hysteresis can retain weak connected pixels while opening removes thin structures. The existing section 5 sweep does not cover this radius comparison.
+- Use viewpoint section 6 panels to locate false occlusion despite a correct homography. Discuss foreshortening/resampling blur and any supported highlight evidence: one global gain/offset cannot model spatially varying blur or view-dependent appearance. Separate observed residual locations from inferred physical causes. Colour-histogram mode is an optional ablation, not required replacement evidence. [AI-DESIGN] [AI-LANGUAGE]
+
+## Stage 4 — Your clip
+### Capture and audit
+<!-- capture conditions (resolution, fps, duration, board fraction, pan / distance / angle / occlusion crossing), privacy, audit annotations recorded before any method ran -->
+### Overlay Scorecard
+<!-- outputs/scorecards/<clip_id>_scorecard.md: both temporal variants, overlaylab.evaluate --clip <clip_id> -->
+### Generative comparison
+<!-- the open-weight video model you chose (direct pixel generation; inference scripts permitted), its settings, the video you gave it (whole clip, a cut, or joined segments), and why (cite the model); the seed, the log, the overlaylab.evaluate --frames report, comparison table against the classical output on the same frames, [AI-GENERATION] markers -->
+### Question 5 — Reflection
+<!-- classical vs your generative model on your clip: geometric placement, artwork identity, occlusion order, background preservation (what the background PSNR says about generated vs composited pixels); controllability, cost; what the model generated outside the board and in front of it; whether it kept the clip's timing (compare with the staff MiniMax-H3 example in data/genai_oracle/) -->
+
+## Evidence table
+
+| Student file | Function | Report section | Notebook figure / table / video |
+|---|---|---|---|
+| [overlaylab/keypoints.py](overlaylab/keypoints.py) | harris_response, detect_corners, describe_keypoints, match_descriptors | Stage 1 — Localise; Question 1 — Matching | **NB1 §§3–5, cells 8, 10, 12, 14, 16:** Harris/NMS plots and sweep, descriptor/ratio-test matches, rotation/scale/viewpoint matching-rate comparison and labelled SIFT baseline; outputs still to save. **NB2 §3, cell 7:** inlier count/ratio, worst-case matches and residuals; [NB2 log](student_files/02_localisation_and_temporal_check.log) records common-test worst cases at frames **160 and 48**, both passing the frozen threshold. Supporting checks: [test_keypoints.py](tests/test_keypoints.py). |
+| [overlaylab/geometry.py](overlaylab/geometry.py) | bilinear_sample, normalise_points, dlt_homography, symmetric_transfer_error, ransac_homography, transfer_points, warp_artwork | Stage 1 — Localise; Question 2 — Geometry | **NB1 §§6–8, cells 18, 20, 22, 24, 26, 28, 30:** normalised DLT/degeneracy, RANSAC outliers/iterations, checkerboard coordinate/warp checks and labelled OpenCV comparisons; outputs still to save. **NB2 §§4–6, cells 9, 11, 13:** RANSAC versus least squares on common test frames; affine versus homography on viewpoint annotations; viewpoint whole-frame warp **0 → 208**. Text comparisons are in the [NB2 log](student_files/02_localisation_and_temporal_check.log). Supporting checks: [test_geometry.py](tests/test_geometry.py). |
+| [overlaylab/localisation.py](overlaylab/localisation.py) | localise_board, artwork_to_frame, overlay_frame, evaluate_audit_frames | Stage 1 — Localise; Questions 1–2 | **NB2 §§2–3, cells 5, 7:** validation/test audit summaries, inlier plots and worst-case quadrilaterals; **§6, cell 13:** single-frame common-test overlay at frame **224**, using the composed artwork-to-frame map. The [NB2 log](student_files/02_localisation_and_temporal_check.log) preserves the 13 validation and 13 test-frame diagnostics; [thresholds.json](outputs/thresholds.json) records the configuration and RANSAC seed. The native-resolution [Stage 1 stress table](student_files/stage1_stress_tables.md) has now been generated and included above; Questions 1 and 2 link the matching diagnostics and saved viewpoint warp figure. |
+| [overlaylab/temporal.py](overlaylab/temporal.py) | lk_flow, track_board, failure_monitor | Stage 2 — Track; Question 3 — Tracking | **NB2 §7, cells 15, 17:** common frames **170 → 171**, LK vectors/eigenvalues/residuals/validity and labelled OpenCV comparison. **§8, cell 19:** independent and flow-assisted variants on common frames **170–239**, projected width, jitter, drift versus reinitialisation age and monitor timelines. **§9, cell 21:** common and synthetic illumination monitor diagnostics. Text evidence: [NB2 log](student_files/02_localisation_and_temporal_check.log) and [drift-display check log](student_files/notebook_drift_display_check.log). Supporting checks: [test_flow.py](tests/test_flow.py). Blur eigenvalue diagnostics, combined/exit timelines and final Stage 2 videos/table remain outstanding. |
+| [overlaylab/compositing.py](overlaylab/compositing.py) | hysteresis, compensated_difference, occlusion_mask, select_difference_thresholds, composite | Stage 3 — Composite; Question 4 — Occlusion | **NB3 §2, cell 5:** compensated difference on common validation frame **96**. **§3, cell 7:** threshold search on validation masks **96, 192, 272**, saved to [thresholds.json](outputs/thresholds.json). **§4, cell 9:** common test masks **144, 208, 448**, IoU/F1/boundary F1, alpha leakage and no-occlusion baseline; **§5, cell 11:** strong/area/hysteresis ablation on validation frame **192**. **§6, cell 13:** combined frames **212, 216, 220, 304, 306, 314** and viewpoint frames **128, 224, 288**. The [NB3 log](student_files/03_occlusion_and_compositing_check.log) labels viewpoint **288** as evaluation-only **GT-fallback** (1/3 viewpoint rows); these preview results must not enter the final stress table. Supporting checks: [test_compositing.py](tests/test_compositing.py). Opening-radius/thin-occluder evidence and final Stage 3 videos/table remain outstanding. |
+
+The mapping above was assembled from notebook source and existing logs. The native-resolution Stage 1 table is now available as `student_files/stage1_stress_tables.md`; Questions 1–2 include matching diagnostics and a saved notebook warp figure. Final Stage 2–3 videos, evaluator reports and combined stress tables remain outstanding; earlier preview logs do not replace them (PDF pp. 12–14). [AI-LANGUAGE]
+
+## AI-use disclosure table
+
+| Tool / model | Affected artefacts (file, cell, figure, section) | Markers | What the tool contributed | How it was verified |
+|---|---|---|---|---|
+| OpenAI ChatGPT-6.1 Sol | [REPORT.md](REPORT.md), Stage 1 implementation overview and frozen success threshold | [AI-LANGUAGE] | Added brief explanations of all 15 listed Stage 1 functions and the saved success criterion. | Cross-checked against `keypoints.py`, `geometry.py`, `localisation.py`, `metrics.py`, the saved configuration and Notebook 2 source/log. Documentation-only edit; no new experiments or test runs. |
+| OpenAI Codex — current table-editing session; exact model identifier not recorded | [REPORT.md](REPORT.md), Evidence table and AI-use disclosure table | [AI-LANGUAGE] | Mapped all 23 assessed functions to notebook sections/cells and existing logs; added relative file links, preview/final-output distinctions, outstanding-evidence notes and disclosure wording. | Read the PDF, report, notebook sources, configuration, test definitions and all three existing diagnostic logs; checked referenced local file paths and cell positions. Did not generate experimental results or visually verify notebook figures. Student review and independent checking remain pending. |
+
+Before submission, confirm the contribution boundaries and retain the relevant prompts. Add `[HUMAN-CHECK]` only with the specific independent tests, measurements or annotation/frame comparisons personally performed. Add `[HUMAN-DATA]` for personal capture/selection/annotation and `[AI-GENERATION]` for the actual Stage 4 generative run when those artifacts exist; `[AI-VISION]` applies only if a vision model contributed labels, masks, scores, embeddings or captions. The supplied staff example is not a student generation, and classical overlay pixels are not AI-generated imagery. The handout also requires applicable markers at the affected code comments/notebook explanations, not only in this table; the current Python modules and notebooks do not yet contain those markers. [AI-LANGUAGE]

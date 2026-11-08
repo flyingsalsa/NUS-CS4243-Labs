@@ -1,0 +1,12 @@
+clip_id,frame,frame_path,annotator,x1,y1,x2,y2,x3,y3,x4,y4,annotated_before_inference
+personal_clip,0,../../data/personal/personal_clip/frames/frame_000000.png,Matthew,336.000,150.857,1522.286,137.143,1501.714,950.400,384.000,969.600,yes
+personal_clip,27,../../data/personal/personal_clip/frames/frame_000027.png,Matthew,407.314,187.886,1552.457,179.657,1527.771,966.857,442.971,977.829,yes
+personal_clip,70,../../data/personal/personal_clip/frames/frame_000070.png,Matthew,481.371,187.886,1599.086,187.886,1567.543,957.257,508.800,957.257,yes
+personal_clip,84,../../data/personal/personal_clip/frames/frame_000084.png,Matthew,352.457,192.000,1582.629,194.743,1553.829,957.257,363.429,954.514,yes
+personal_clip,89,../../data/personal/personal_clip/frames/frame_000089.png,Matthew,471.771,187.886,1579.886,189.257,1548.343,951.771,497.829,957.257,yes
+personal_clip,157,../../data/personal/personal_clip/frames/frame_000157.png,Matthew,617.143,346.971,1246.629,346.971,1241.143,788.571,625.371,789.943,yes
+personal_clip,207,../../data/personal/personal_clip/frames/frame_000207.png,Matthew,729.600,436.114,1143.771,440.229,1138.286,732.343,730.971,728.229,yes
+personal_clip,258,../../data/personal/personal_clip/frames/frame_000258.png,Matthew,630.857,117.943,1546.971,401.829,1326.171,1032.686,452.571,750.171,yes
+personal_clip,259,../../data/personal/personal_clip/frames/frame_000259.png,Matthew,630.857,100.114,1563.429,410.057,1326.171,1051.886,437.486,747.429,yes
+personal_clip,378,../../data/personal/personal_clip/frames/frame_000378.png,Matthew,348.343,131.657,1097.143,64.457,1127.314,757.029,427.886,681.600,yes
+personal_clip,429,../../data/personal/personal_clip/frames/frame_000429.png,Matthew,385.371,185.143,1237.029,296.229,1167.086,850.286,344.229,898.286,yes

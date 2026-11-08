@@ -1,0 +1,120 @@
+
+CELL 4
+63 subset frames of 640x360 (scale 0.500); reference 198x165; 13 validation / 13 test annotated frames
+
+
+CELL 8
+mode      r sigma_w  total  board background
+window    4     1.5    245    149         96
+window    4     2.0    211    121         90
+window    4     3.0    162     90         72
+radius    5     1.5    513    345        168
+radius    5     2.0    600    414        186
+radius    5     3.0    600    434        166
+radius    9     1.5    260    161         99
+radius    9     2.0    288    176        112
+radius    9     3.0    329    205        124
+
+
+CELL 10
+mode     sigma_w  kappa on board  repeat.
+window       1.5   0.04      117     0.75
+window       1.5   0.06      116     0.73
+window       1.5   0.10      112     0.75
+window       2.0   0.04      102     0.77
+window       2.0   0.06      103     0.80
+window       2.0   0.10      103     0.72
+window       3.0   0.04       79     0.81
+window       3.0   0.06       81     0.84
+window       3.0   0.10       78     0.82
+radius       1.5   0.04      339     0.85
+radius       1.5   0.06      325     0.85
+radius       1.5   0.10      295     0.83
+radius       2.0   0.04      377     0.82
+radius       2.0   0.06      365     0.85
+radius       2.0   0.10      345     0.84
+radius       3.0   0.04      420     0.82
+radius       3.0   0.06      412     0.84
+radius       3.0   0.10      390     0.84
+
+
+CELL 10
+Keeping radius NMS, sigma_w=2.0, kappa=0.06: repeatability=0.849, on-board corners=365
+
+
+CELL 12
+349 reference and 600 frame descriptors; 349 nearest neighbours, 180 survive the ratio test at 0.8
+
+
+CELL 12
+correct nearest neighbours: 208  accepted: 180  correct&accepted: 176  correct&rejected: 32  wrong&accepted: 4
+
+
+CELL 14
+Stage 1 choices saved before stress analysis. Do not retune from the stress rows.
+
+
+CELL 14
+matching rate: original 0.516, rotated 30 deg 0.470, downscaled x0.6 0.043
+
+
+CELL 16
+worst subset frame for your descriptor: 448 (rate 0.132);  SIFT rate on the same pair: 0.172
+
+
+CELL 18
+normalised     corner error 0.0472%   condition number sigma_1/sigma_8 = 3.36
+un-normalised  corner error 0.0446%   condition number sigma_1/sigma_8 = 2.01e+05
+With float64 SVD both solve this small, noise-free-ish system; the conditioning gap is what grows with coordinate magnitude, noise and outliers.
+
+
+CELL 18
+small-patch configuration: status True | corner error 1.7%
+collinear configuration: status False
+
+
+CELL 20
+ offset  noise  cond (norm)  cond (raw)  err norm  err raw
+      0    0.3          4.2    1.65e+05    0.091%   0.090%
+      0    2.0         4.19    1.66e+05    0.602%   0.588%
+   2000    0.3          4.2    6.88e+08    0.091%   0.087%
+   2000    2.0         4.19    7.89e+08    0.602%   0.542%
+   8000    0.3          4.2    2.84e+10    0.091%   0.088%
+   8000    2.0         4.19    3.21e+10    0.602%   0.524%
+3 collinear + 1: status False | two smallest singular values [9.69565313e-01 2.33485066e-16] (both ~0 => the null space is 2-dimensional)
+
+
+CELL 22
+max |H_ours - H_cv| after normalising H[2,2]: 0.0010743736789606828
+
+
+CELL 24
+  thr max_it  used inliers corner err
+  2.0     20    20       4    36.219%
+  2.0    200   200      43     0.267%
+  2.0   2000   221      54     0.066%
+  4.0     20    20       4    36.219%
+  4.0    200   200      55     0.226%
+  4.0   2000   219      59     0.065%
+  9.0     20    20       4    36.219%
+  9.0    200   160      60     0.113%
+  9.0   2000   160      60     0.113%
+ 25.0     20    20       5   150.009%
+ 25.0    200    88      60     0.051%
+ 25.0   2000    88      60     0.051%
+
+
+CELL 26
+true eps found eps N(0.995)  used success@cap=N/4
+    0.25      0.25       14    17             50%
+    0.50      0.50       83    83             70%
+    0.67      0.67      427   427             40%
+    0.75      0.75     1354  1551             70%
+
+
+CELL 28
+coverage bbox x: 60 300  y: 40 150 | expected approx 60.0 300.0 40.0 150.0
+
+
+CELL 30
+mean |ours - cv2| inside coverage: 0.0015469541540369391

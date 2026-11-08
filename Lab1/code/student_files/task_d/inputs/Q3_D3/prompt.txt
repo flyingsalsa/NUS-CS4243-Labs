@@ -1,0 +1,21 @@
+Inspect the attached query image. The material is leather.
+Allowed defect labels and definitions:
+color: A localized region has an abnormal colour or tone.
+cut: A sharp incision or sliced region interrupts the texture.
+fold: The surface is creased or folded out of its normal plane.
+glue: A localized glue deposit changes the surface appearance.
+poke: A small puncture-like indentation or opening is visible.
+Return JSON with is_defective, defect_name, confidence, and evidence.
+Use a Boolean for is_defective. defect_name must be exactly one listed label
+or "good" if no defect is visible. These two fields must agree. Give confidence
+from 0 to 100 in your selected decision and name, and one sentence of visible
+evidence.
+
+The additional images are labelled validation examples in this order:
+Support image 1: color
+Support image 2: cut
+Support image 3: fold
+Support image 4: glue
+Support image 5: poke
+Compare the query with all five examples and classify only the query image.
+Return the same JSON schema.

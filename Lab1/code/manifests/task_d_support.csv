@@ -1,0 +1,26 @@
+query_id,material,defect_name,definition,path
+Q1,carpet,color,A localized region has an abnormal colour or tone.,../../data/MVTec/carpet/test/color/000.png
+Q1,carpet,cut,A sharp incision or sliced region interrupts the texture.,../../data/MVTec/carpet/test/cut/000.png
+Q1,carpet,hole,Material is missing in a compact hole-like region.,../../data/MVTec/carpet/test/hole/000.png
+Q1,carpet,metal_contamination,A metallic foreign object lies on the surface.,../../data/MVTec/carpet/test/metal_contamination/000.png
+Q1,carpet,thread,A foreign thread lies across the regular texture.,../../data/MVTec/carpet/test/thread/000.png
+Q2,grid,bent,The regular grid lines are locally warped or displaced.,../../data/MVTec/grid/test/bent/000.png
+Q2,grid,broken,Part of the repeating grid is interrupted or missing.,../../data/MVTec/grid/test/broken/000.png
+Q2,grid,glue,A localized glue deposit changes the surface appearance.,../../data/MVTec/grid/test/glue/000.png
+Q2,grid,metal_contamination,A metallic foreign object lies on the surface.,../../data/MVTec/grid/test/metal_contamination/000.png
+Q2,grid,thread,A foreign thread lies across the regular texture.,../../data/MVTec/grid/test/thread/000.png
+Q3,leather,color,A localized region has an abnormal colour or tone.,../../data/MVTec/leather/test/color/000.png
+Q3,leather,cut,A sharp incision or sliced region interrupts the texture.,../../data/MVTec/leather/test/cut/000.png
+Q3,leather,fold,The surface is creased or folded out of its normal plane.,../../data/MVTec/leather/test/fold/000.png
+Q3,leather,glue,A localized glue deposit changes the surface appearance.,../../data/MVTec/leather/test/glue/000.png
+Q3,leather,poke,A small puncture-like indentation or opening is visible.,../../data/MVTec/leather/test/poke/000.png
+Q4,tile,crack,A narrow fracture-like line crosses the material surface.,../../data/MVTec/tile/test/crack/000.png
+Q4,tile,glue_strip,An elongated strip of adhesive lies on the tile.,../../data/MVTec/tile/test/glue_strip/000.png
+Q4,tile,gray_stroke,A grey linear mark appears across the tile.,../../data/MVTec/tile/test/gray_stroke/000.png
+Q4,tile,oil,An oily region changes colour or reflectance.,../../data/MVTec/tile/test/oil/000.png
+Q4,tile,rough,A localized patch is visibly rougher than normal.,../../data/MVTec/tile/test/rough/000.png
+Q5,wood,color,A localized region has an abnormal colour or tone.,../../data/MVTec/wood/test/color/000.png
+Q5,wood,combined,More than one defect mechanism appears in the same image.,../../data/MVTec/wood/test/combined/000.png
+Q5,wood,hole,Material is missing in a compact hole-like region.,../../data/MVTec/wood/test/hole/000.png
+Q5,wood,liquid,A liquid stain changes colour or reflectance locally.,../../data/MVTec/wood/test/liquid/000.png
+Q5,wood,scratch,A thin elongated abrasion crosses the surface.,../../data/MVTec/wood/test/scratch/000.png

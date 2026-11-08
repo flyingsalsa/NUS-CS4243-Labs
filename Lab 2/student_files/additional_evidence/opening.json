@@ -1,0 +1,332 @@
+{
+  "source_config": {
+    "localisation": {
+      "detector": {
+        "sigma_w": 2.0,
+        "kappa": 0.05,
+        "response_fraction": 0.005,
+        "nms_mode": "radius",
+        "nms_radius": 5,
+        "max_corners": 600,
+        "border": 12
+      },
+      "descriptor": {
+        "patch_scale": 1.0,
+        "orientation_bins": 36,
+        "cells": 4,
+        "cell_bins": 8,
+        "gaussian_weighting": true,
+        "clamp": 0.2
+      },
+      "matcher": {
+        "ratio": 0.8,
+        "mutual": false
+      },
+      "ransac": {
+        "threshold": 9.0,
+        "confidence": 0.995,
+        "max_iterations": 2000,
+        "min_inliers": 12,
+        "seed": 0
+      },
+      "warp": {
+        "feather": 0,
+        "match_gain": false,
+        "reference_shape": null
+      },
+      "success_threshold": 0.02
+    },
+    "track": {
+      "variant": "flow_assisted",
+      "flow": {
+        "window": 7,
+        "iterations": 20,
+        "min_eigenvalue": 0.0002,
+        "max_residual": 0.08,
+        "convergence": 0.01,
+        "pyramid_levels": 1
+      },
+      "monitor": {
+        "min_inlier_count": 12,
+        "min_inlier_ratio": 0.4,
+        "max_median_residual": 3.0,
+        "max_corner_displacement": 60.0,
+        "max_mean_flow": 25.0,
+        "max_brightness_change": 0.15,
+        "hide_after_consecutive": 2
+      },
+      "reinit_every": 60,
+      "reinit_min_points": 20,
+      "propagate": "inliers"
+    },
+    "occlusion": {
+      "mode": "difference",
+      "strong": 0.25,
+      "weak": 0.12,
+      "min_area": 150,
+      "open_radius": 2,
+      "connectivity": 8,
+      "gain_quantile": 0.5,
+      "feather": 3
+    },
+    "composite": {
+      "feather": 3,
+      "match_gain": false
+    },
+    "resize_width": null
+  },
+  "validation_width": 640,
+  "validation_min_area": 38,
+  "validation": [
+    {
+      "frame": 96,
+      "open_radius": 0,
+      "iou": 0.8815776627941033,
+      "f1": 0.9370622113838012,
+      "boundary_f1": 0.7053114981370766,
+      "alpha_leakage": 0.015227367542761786,
+      "false_positive_pixels": 655,
+      "false_negative_pixels": 558,
+      "components": [
+        [
+          4,
+          330,
+          280,
+          222,
+          63,
+          9685
+        ]
+      ]
+    },
+    {
+      "frame": 96,
+      "open_radius": 2,
+      "iou": 0.8822091886608016,
+      "f1": 0.9374188522461698,
+      "boundary_f1": 0.7043657916523192,
+      "alpha_leakage": 0.015227367542761786,
+      "false_positive_pixels": 642,
+      "false_negative_pixels": 563,
+      "components": [
+        [
+          1,
+          331,
+          280,
+          220,
+          62,
+          9667
+        ]
+      ]
+    },
+    {
+      "frame": 192,
+      "open_radius": 0,
+      "iou": 0.9224497083680514,
+      "f1": 0.9596606916194546,
+      "boundary_f1": 0.5206963821447502,
+      "alpha_leakage": 0.0007492975335622854,
+      "false_positive_pixels": 787,
+      "false_negative_pixels": 516,
+      "components": [
+        [
+          1,
+          214,
+          129,
+          148,
+          177,
+          16286
+        ]
+      ]
+    },
+    {
+      "frame": 192,
+      "open_radius": 2,
+      "iou": 0.9243988304791455,
+      "f1": 0.9607143964528232,
+      "boundary_f1": 0.5353876921257346,
+      "alpha_leakage": 0.0008117389946924758,
+      "false_positive_pixels": 744,
+      "false_negative_pixels": 523,
+      "components": [
+        [
+          1,
+          214,
+          129,
+          148,
+          177,
+          16236
+        ]
+      ]
+    },
+    {
+      "frame": 272,
+      "open_radius": 0,
+      "iou": 0.770703125,
+      "f1": 0.8705051842047209,
+      "boundary_f1": 0.44087475070494586,
+      "alpha_leakage": 0.024096385542168676,
+      "false_positive_pixels": 957,
+      "false_negative_pixels": 804,
+      "components": [
+        [
+          1,
+          167,
+          56,
+          101,
+          53,
+          154
+        ],
+        [
+          2,
+          227,
+          63,
+          33,
+          34,
+          357
+        ],
+        [
+          4,
+          204,
+          84,
+          22,
+          16,
+          77
+        ],
+        [
+          7,
+          276,
+          92,
+          18,
+          29,
+          51
+        ],
+        [
+          13,
+          97,
+          148,
+          121,
+          138,
+          6118
+        ],
+        [
+          14,
+          193,
+          214,
+          27,
+          17,
+          43
+        ],
+        [
+          16,
+          225,
+          224,
+          18,
+          14,
+          76
+        ]
+      ]
+    },
+    {
+      "frame": 272,
+      "open_radius": 2,
+      "iou": 0.8632178868917142,
+      "f1": 0.9265882352941176,
+      "boundary_f1": 0.736027226536286,
+      "alpha_leakage": 0.02484010114532203,
+      "false_positive_pixels": 120,
+      "false_negative_pixels": 816,
+      "components": [
+        [
+          1,
+          98,
+          149,
+          119,
+          136,
+          6027
+        ]
+      ]
+    }
+  ],
+  "synthetic": [
+    {
+      "width_px": 1,
+      "radius": 0,
+      "remaining_pixels": 0
+    },
+    {
+      "width_px": 1,
+      "radius": 2,
+      "remaining_pixels": 0
+    },
+    {
+      "width_px": 2,
+      "radius": 0,
+      "remaining_pixels": 200
+    },
+    {
+      "width_px": 2,
+      "radius": 2,
+      "remaining_pixels": 0
+    },
+    {
+      "width_px": 3,
+      "radius": 0,
+      "remaining_pixels": 300
+    },
+    {
+      "width_px": 3,
+      "radius": 2,
+      "remaining_pixels": 0
+    },
+    {
+      "width_px": 4,
+      "radius": 0,
+      "remaining_pixels": 400
+    },
+    {
+      "width_px": 4,
+      "radius": 2,
+      "remaining_pixels": 0
+    },
+    {
+      "width_px": 5,
+      "radius": 0,
+      "remaining_pixels": 500
+    },
+    {
+      "width_px": 5,
+      "radius": 2,
+      "remaining_pixels": 488
+    },
+    {
+      "width_px": 6,
+      "radius": 0,
+      "remaining_pixels": 600
+    },
+    {
+      "width_px": 6,
+      "radius": 2,
+      "remaining_pixels": 588
+    },
+    {
+      "width_px": 7,
+      "radius": 0,
+      "remaining_pixels": 700
+    },
+    {
+      "width_px": 7,
+      "radius": 2,
+      "remaining_pixels": 688
+    },
+    {
+      "width_px": 8,
+      "radius": 0,
+      "remaining_pixels": 800
+    },
+    {
+      "width_px": 8,
+      "radius": 2,
+      "remaining_pixels": 788
+    }
+  ]
+}

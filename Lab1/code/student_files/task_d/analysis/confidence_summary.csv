@@ -1,0 +1,13 @@
+condition,criterion,correct,count,mean_confidence,min_confidence,max_confidence
+D1,binary_correct,True,5,97.8,95.0,100.0
+D1,binary_correct,False,0,N/A,N/A,N/A
+D1,exact_label_correct,True,2,99.0,98.0,100.0
+D1,exact_label_correct,False,3,97.0,95.0,98.0
+D2,binary_correct,True,5,96.6,95.0,100.0
+D2,binary_correct,False,0,N/A,N/A,N/A
+D2,exact_label_correct,True,5,96.6,95.0,100.0
+D2,exact_label_correct,False,0,N/A,N/A,N/A
+D3,binary_correct,True,4,96.5,95.0,98.0
+D3,binary_correct,False,1,95.0,95.0,95.0
+D3,exact_label_correct,True,3,96.0,95.0,98.0
+D3,exact_label_correct,False,2,96.5,95.0,98.0

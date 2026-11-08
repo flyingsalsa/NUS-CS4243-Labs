@@ -1,0 +1,6 @@
+63 subset frames; 13 validation and 13 test annotated frames
+80 tracked points, 6 valid; median |flow| 26.81 px
+independent    ok 66/70  reinits 70  jitter 2.25px  errors on annotated frames [0.41, 0.56, 0.39, 0.36]
+flow_assisted  ok 68/70  reinits 10  jitter 2.56px  errors on annotated frames [0.46, 0.59, 1.08, 1.37]
+independent: 4 lost frames; reinitialisations at [170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239]
+flow_assisted: 2 lost frames; reinitialisations at [170, 171, 172, 197, 201, 202, 203, 206, 207, 237]

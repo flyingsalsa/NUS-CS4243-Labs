@@ -1,0 +1,3 @@
+path,split,material,defect_type,mask_path,attributes
+relative/path/to/image.png,train,carpet,good,,woven;fibrous
+

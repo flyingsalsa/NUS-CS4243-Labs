@@ -1,0 +1,6 @@
+clip_id,frame,frame_path,mask_path,annotator,occluder,annotated_before_inference
+personal_clip,0,../../data/personal/personal_clip/frames/frame_000000.png,../../data/personal/personal_clip/masks/mask_000000.png,Matthew,none,yes
+personal_clip,70,../../data/personal/personal_clip/frames/frame_000070.png,../../data/personal/personal_clip/masks/mask_000070.png,Matthew,iPad,yes
+personal_clip,84,../../data/personal/personal_clip/frames/frame_000084.png,../../data/personal/personal_clip/masks/mask_000084.png,Matthew,iPad,yes
+personal_clip,89,../../data/personal/personal_clip/frames/frame_000089.png,../../data/personal/personal_clip/masks/mask_000089.png,Matthew,iPad,yes
+personal_clip,207,../../data/personal/personal_clip/frames/frame_000207.png,../../data/personal/personal_clip/masks/mask_000207.png,Matthew,none,yes

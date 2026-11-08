@@ -1,0 +1,4 @@
+condition,n,binary_correct,binary_accuracy,exact_label_correct,exact_label_accuracy,exact_label_interpretation,outside_supplied_vocabulary,vocabulary_violations,decision_label_inconsistencies,mean_confidence
+D1,5,5,1.0,2,0.4,literal diagnostic only,3,N/A (free-form),0,97.8
+D2,5,5,1.0,5,1.0,task accuracy,0,0,0,96.6
+D3,5,4,0.8,3,0.6,task accuracy,0,0,0,96.2

@@ -1,0 +1,37 @@
+{
+  "carpet": {
+    "color": "A localized region has an abnormal colour or tone.",
+    "cut": "A sharp incision or sliced region interrupts the texture.",
+    "hole": "Material is missing in a compact hole-like region.",
+    "metal_contamination": "A metallic foreign object lies on the surface.",
+    "thread": "A foreign thread lies across the regular texture."
+  },
+  "grid": {
+    "bent": "The regular grid lines are locally warped or displaced.",
+    "broken": "Part of the repeating grid is interrupted or missing.",
+    "glue": "A localized glue deposit changes the surface appearance.",
+    "metal_contamination": "A metallic foreign object lies on the surface.",
+    "thread": "A foreign thread lies across the regular texture."
+  },
+  "leather": {
+    "color": "A localized region has an abnormal colour or tone.",
+    "cut": "A sharp incision or sliced region interrupts the texture.",
+    "fold": "The surface is creased or folded out of its normal plane.",
+    "glue": "A localized glue deposit changes the surface appearance.",
+    "poke": "A small puncture-like indentation or opening is visible."
+  },
+  "tile": {
+    "crack": "A narrow fracture-like line crosses the material surface.",
+    "glue_strip": "An elongated strip of adhesive lies on the tile.",
+    "gray_stroke": "A grey linear mark appears across the tile.",
+    "oil": "An oily region changes colour or reflectance.",
+    "rough": "A localized patch is visibly rougher than normal."
+  },
+  "wood": {
+    "color": "A localized region has an abnormal colour or tone.",
+    "combined": "More than one defect mechanism appears in the same image.",
+    "hole": "Material is missing in a compact hole-like region.",
+    "liquid": "A liquid stain changes colour or reflectance locally.",
+    "scratch": "A thin elongated abrasion crosses the surface."
+  }
+}

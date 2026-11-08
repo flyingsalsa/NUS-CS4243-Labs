@@ -1,0 +1,455 @@
+{
+  "links": [
+    "outputs/stress_tables.md",
+    "outputs/thresholds.json",
+    "outputs/stress_tables.json",
+    "overlaylab/keypoints.py",
+    "overlaylab/geometry.py",
+    "overlaylab/localisation.py",
+    "student_files/notebook_evidence/nb01_cell08_fig1.png",
+    "student_files/notebook_evidence/nb01_cell12_fig1.png",
+    "student_files/notebook_evidence/nb01_cell28_fig1.png",
+    "student_files/notebook_evidence/nb02_cell07_fig1.png",
+    "student_files/notebook_evidence/nb02_cell07_fig2.png",
+    "student_files/notebook_evidence/nb02_cell07_fig3.png",
+    "student_files/notebook_evidence/nb02_cell07_fig4.png",
+    "student_files/notebook_evidence/nb02_cell07_fig5.png",
+    "student_files/notebook_evidence/nb02_outputs.txt",
+    "student_files/notebook_evidence/nb02_cell13_fig1.png",
+    "outputs/thresholds.json",
+    "student_files/02_localisation_and_temporal_check.log",
+    "student_files/question1/matching_rates.png",
+    "student_files/question1/best_matches.png",
+    "student_files/question1/worst_matches.png",
+    "student_files/question1/matching.json",
+    "student_files/question1/matching_rates.png",
+    "student_files/question1/best_matches.png",
+    "student_files/question1/worst_matches.png",
+    "student_files/question2/viewpoint_whole_frame_warp.png",
+    "student_files/question2/viewpoint_whole_frame_warp.png",
+    "student_files/notebook_evidence/nb02_cell11_fig1.png",
+    "student_files/notebook_evidence/nb02_cell15_fig2.png",
+    "student_files/tracking_evidence/common_stable_window.png",
+    "student_files/tracking_evidence/blur_aperture_probe.png",
+    "student_files/tracking_evidence/coke_unconstrained_contact.png",
+    "student_files/tracking_evidence/coke_out_of_view_contact.png",
+    "student_files/tracking_evidence/tracking.json",
+    "student_files/tracking_evidence/common_comparison.png",
+    "student_files/tracking_evidence/common_clip_timeline.png",
+    "student_files/tracking_evidence/coke_out_of_view_timeline.png",
+    "student_files/tracking_evidence/coke_unconstrained_timeline.png",
+    "student_files/tracking_evidence/blur_flow_000001.png",
+    "student_files/tracking_evidence/blur_flow_000003.png",
+    "student_files/notebook_evidence/nb03_cell05_fig1.png",
+    "student_files/notebook_evidence/nb03_cell09_fig1.png",
+    "student_files/additional_evidence/boundary_common_clip.png",
+    "student_files/additional_evidence/boundary_coke_unconstrained.png",
+    "student_files/additional_evidence/opening.json",
+    "student_files/additional_evidence/opening_validation.png",
+    "student_files/additional_evidence/thin_occluder.png",
+    "student_files/notebook_evidence/nb03_cell13_fig4.png",
+    "student_files/notebook_evidence/nb03_cell13_fig5.png",
+    "overlaylab/keypoints.py",
+    "overlaylab/geometry.py",
+    "overlaylab/localisation.py",
+    "overlaylab/temporal.py",
+    "overlaylab/compositing.py",
+    "student_files/notebook_evidence/index.json",
+    "student_files/notebook_evidence/nb01_outputs.txt",
+    "student_files/notebook_evidence/nb02_outputs.txt",
+    "student_files/notebook_evidence/nb03_outputs.txt",
+    "student_files/stages1_3_tests.log",
+    "student_files/completion_checks.json",
+    "outputs/videos/common_clip_independent.mp4",
+    "outputs/evaluation/common_clip_independent_report.json",
+    "outputs/videos/common_clip_flow_assisted.mp4",
+    "outputs/evaluation/common_clip_flow_assisted_report.json",
+    "outputs/videos/common_clip_flow_assisted_no_occlusion.mp4",
+    "outputs/evaluation/common_clip_flow_assisted_no_occlusion_report.json",
+    "outputs/videos/coke_perspective_flow_assisted.mp4",
+    "outputs/evaluation/coke_perspective_flow_assisted_report.json",
+    "outputs/videos/coke_scale_flow_assisted.mp4",
+    "outputs/evaluation/coke_scale_flow_assisted_report.json",
+    "outputs/videos/coke_blur_flow_assisted.mp4",
+    "outputs/evaluation/coke_blur_flow_assisted_report.json",
+    "outputs/videos/coke_out_of_view_flow_assisted.mp4",
+    "outputs/evaluation/coke_out_of_view_flow_assisted_report.json",
+    "outputs/videos/coke_unconstrained_flow_assisted.mp4",
+    "outputs/evaluation/coke_unconstrained_flow_assisted_report.json",
+    "student_files/export_notebook_evidence.py",
+    "student_files/additional_evidence.py",
+    "student_files/tracking_evidence.py",
+    "student_files/complete_report.py",
+    "student_files/verify_completion.py",
+    "student_files/session_provenance.txt"
+  ],
+  "figures": [
+    {
+      "file": "student_files/notebook_evidence/nb01_cell08_fig1.png",
+      "shape": [
+        318,
+        1105,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb01_cell12_fig1.png",
+      "shape": [
+        315,
+        532,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb01_cell28_fig1.png",
+      "shape": [
+        299,
+        485,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell07_fig1.png",
+      "shape": [
+        315,
+        920,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell07_fig2.png",
+      "shape": [
+        503,
+        583,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell07_fig3.png",
+      "shape": [
+        290,
+        490,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell07_fig4.png",
+      "shape": [
+        503,
+        583,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell07_fig5.png",
+      "shape": [
+        290,
+        489,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell13_fig1.png",
+      "shape": [
+        387,
+        636,
+        3
+      ]
+    },
+    {
+      "file": "student_files/question1/matching_rates.png",
+      "shape": [
+        300,
+        800,
+        3
+      ]
+    },
+    {
+      "file": "student_files/question1/best_matches.png",
+      "shape": [
+        500,
+        1200,
+        3
+      ]
+    },
+    {
+      "file": "student_files/question1/worst_matches.png",
+      "shape": [
+        500,
+        1200,
+        3
+      ]
+    },
+    {
+      "file": "student_files/question2/viewpoint_whole_frame_warp.png",
+      "shape": [
+        237,
+        1182,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell11_fig1.png",
+      "shape": [
+        315,
+        842,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb02_cell15_fig2.png",
+      "shape": [
+        390,
+        469,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/common_stable_window.png",
+      "shape": [
+        877,
+        1398,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/blur_aperture_probe.png",
+      "shape": [
+        881,
+        1594,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/common_comparison.png",
+      "shape": [
+        1269,
+        1758,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/common_clip_timeline.png",
+      "shape": [
+        1791,
+        1857,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/coke_out_of_view_timeline.png",
+      "shape": [
+        1791,
+        1859,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/coke_unconstrained_timeline.png",
+      "shape": [
+        1791,
+        1859,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/blur_flow_000001.png",
+      "shape": [
+        751,
+        2059,
+        3
+      ]
+    },
+    {
+      "file": "student_files/tracking_evidence/blur_flow_000003.png",
+      "shape": [
+        751,
+        2059,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb03_cell05_fig1.png",
+      "shape": [
+        182,
+        1182,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb03_cell09_fig1.png",
+      "shape": [
+        456,
+        1182,
+        3
+      ]
+    },
+    {
+      "file": "student_files/additional_evidence/boundary_common_clip.png",
+      "shape": [
+        1064,
+        1308,
+        3
+      ]
+    },
+    {
+      "file": "student_files/additional_evidence/boundary_coke_unconstrained.png",
+      "shape": [
+        1040,
+        1308,
+        3
+      ]
+    },
+    {
+      "file": "student_files/additional_evidence/opening_validation.png",
+      "shape": [
+        994,
+        1681,
+        3
+      ]
+    },
+    {
+      "file": "student_files/additional_evidence/thin_occluder.png",
+      "shape": [
+        682,
+        1500,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb03_cell13_fig4.png",
+      "shape": [
+        193,
+        1260,
+        3
+      ]
+    },
+    {
+      "file": "student_files/notebook_evidence/nb03_cell13_fig5.png",
+      "shape": [
+        193,
+        1260,
+        3
+      ]
+    }
+  ],
+  "videos": [
+    {
+      "stem": "common_clip_independent",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [
+        96,
+        144,
+        192,
+        208,
+        272
+      ],
+      "hidden_masks": [
+        448
+      ],
+      "evaluator": "outputs\\evaluation\\common_clip_independent_report.json"
+    },
+    {
+      "stem": "common_clip_flow_assisted",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [
+        96,
+        144,
+        192,
+        208,
+        272
+      ],
+      "hidden_masks": [
+        448
+      ],
+      "evaluator": "outputs\\evaluation\\common_clip_flow_assisted_report.json"
+    },
+    {
+      "stem": "common_clip_flow_assisted_no_occlusion",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [
+        96,
+        144,
+        192,
+        208,
+        272
+      ],
+      "hidden_masks": [
+        448
+      ],
+      "evaluator": "outputs\\evaluation\\common_clip_flow_assisted_no_occlusion_report.json"
+    },
+    {
+      "stem": "coke_perspective_flow_assisted",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [
+        128,
+        224
+      ],
+      "hidden_masks": [
+        288
+      ],
+      "evaluator": "outputs\\evaluation\\coke_perspective_flow_assisted_report.json"
+    },
+    {
+      "stem": "coke_scale_flow_assisted",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [],
+      "hidden_masks": [],
+      "evaluator": "outputs\\evaluation\\coke_scale_flow_assisted_report.json"
+    },
+    {
+      "stem": "coke_blur_flow_assisted",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [],
+      "hidden_masks": [],
+      "evaluator": "outputs\\evaluation\\coke_blur_flow_assisted_report.json"
+    },
+    {
+      "stem": "coke_out_of_view_flow_assisted",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [],
+      "hidden_masks": [],
+      "evaluator": "outputs\\evaluation\\coke_out_of_view_flow_assisted_report.json"
+    },
+    {
+      "stem": "coke_unconstrained_flow_assisted",
+      "frames": 500,
+      "width": 1280,
+      "height": 720,
+      "scored_masks": [
+        216,
+        220,
+        304,
+        306
+      ],
+      "hidden_masks": [
+        212,
+        314
+      ],
+      "evaluator": "outputs\\evaluation\\coke_unconstrained_flow_assisted_report.json"
+    }
+  ],
+  "tables": [
+    "verbatim",
+    "verbatim",
+    "verbatim"
+  ],
+  "thresholds_sha256": "ed3d477f70bcddb4b3c9bbf24dee5b5dfacfb2f51ae153803741f452d1a96c79",
+  "assessed_code_sha256": "deaa93da056c508f786f4c6db56d0d0e2425b96dddc8e9153ae7252f2ffc7d2d",
+  "result": "PASS"
+}

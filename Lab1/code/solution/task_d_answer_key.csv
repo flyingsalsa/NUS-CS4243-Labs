@@ -1,0 +1,6 @@
+id,material,true_defect,path
+Q1,carpet,color,../data/MVTec/carpet/test/color/001.png
+Q2,grid,broken,../data/MVTec/grid/test/broken/001.png
+Q3,leather,cut,../data/MVTec/leather/test/cut/001.png
+Q4,tile,crack,../data/MVTec/tile/test/crack/001.png
+Q5,wood,scratch,../data/MVTec/wood/test/scratch/001.png

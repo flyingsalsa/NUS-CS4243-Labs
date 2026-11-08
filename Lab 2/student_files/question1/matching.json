@@ -1,0 +1,220 @@
+{
+  "clip": "coke_scale",
+  "subset": "stress/test annotations",
+  "width": 640,
+  "reference_shape": [
+    165,
+    198,
+    3
+  ],
+  "best": {
+    "frame": 80,
+    "matches": 170,
+    "reference_descriptors": 349,
+    "rate": 0.4871060171919771,
+    "sift_rate": 0.5851063829787234
+  },
+  "worst": {
+    "frame": 400,
+    "matches": 1,
+    "reference_descriptors": 349,
+    "rate": 0.0028653295128939827,
+    "sift_rate": 0.11063829787234042
+  },
+  "per_frame": [
+    {
+      "frame": 0,
+      "matches": 64,
+      "reference_descriptors": 349,
+      "rate": 0.1833810888252149
+    },
+    {
+      "frame": 16,
+      "matches": 59,
+      "reference_descriptors": 349,
+      "rate": 0.16905444126074498
+    },
+    {
+      "frame": 32,
+      "matches": 72,
+      "reference_descriptors": 349,
+      "rate": 0.20630372492836677
+    },
+    {
+      "frame": 48,
+      "matches": 103,
+      "reference_descriptors": 349,
+      "rate": 0.29512893982808025
+    },
+    {
+      "frame": 64,
+      "matches": 113,
+      "reference_descriptors": 349,
+      "rate": 0.3237822349570201
+    },
+    {
+      "frame": 80,
+      "matches": 170,
+      "reference_descriptors": 349,
+      "rate": 0.4871060171919771,
+      "sift_rate": 0.5851063829787234
+    },
+    {
+      "frame": 96,
+      "matches": 71,
+      "reference_descriptors": 349,
+      "rate": 0.2034383954154728
+    },
+    {
+      "frame": 112,
+      "matches": 123,
+      "reference_descriptors": 349,
+      "rate": 0.3524355300859599
+    },
+    {
+      "frame": 128,
+      "matches": 88,
+      "reference_descriptors": 349,
+      "rate": 0.2521489971346705
+    },
+    {
+      "frame": 144,
+      "matches": 42,
+      "reference_descriptors": 349,
+      "rate": 0.12034383954154727
+    },
+    {
+      "frame": 160,
+      "matches": 15,
+      "reference_descriptors": 349,
+      "rate": 0.04297994269340974
+    },
+    {
+      "frame": 176,
+      "matches": 23,
+      "reference_descriptors": 349,
+      "rate": 0.0659025787965616
+    },
+    {
+      "frame": 192,
+      "matches": 6,
+      "reference_descriptors": 349,
+      "rate": 0.017191977077363897
+    },
+    {
+      "frame": 208,
+      "matches": 4,
+      "reference_descriptors": 349,
+      "rate": 0.011461318051575931
+    },
+    {
+      "frame": 224,
+      "matches": 5,
+      "reference_descriptors": 349,
+      "rate": 0.014326647564469915
+    },
+    {
+      "frame": 240,
+      "matches": 4,
+      "reference_descriptors": 349,
+      "rate": 0.011461318051575931
+    },
+    {
+      "frame": 256,
+      "matches": 6,
+      "reference_descriptors": 349,
+      "rate": 0.017191977077363897
+    },
+    {
+      "frame": 272,
+      "matches": 2,
+      "reference_descriptors": 349,
+      "rate": 0.0057306590257879654
+    },
+    {
+      "frame": 288,
+      "matches": 2,
+      "reference_descriptors": 349,
+      "rate": 0.0057306590257879654
+    },
+    {
+      "frame": 304,
+      "matches": 5,
+      "reference_descriptors": 349,
+      "rate": 0.014326647564469915
+    },
+    {
+      "frame": 320,
+      "matches": 3,
+      "reference_descriptors": 349,
+      "rate": 0.008595988538681949
+    },
+    {
+      "frame": 336,
+      "matches": 3,
+      "reference_descriptors": 349,
+      "rate": 0.008595988538681949
+    },
+    {
+      "frame": 352,
+      "matches": 4,
+      "reference_descriptors": 349,
+      "rate": 0.011461318051575931
+    },
+    {
+      "frame": 368,
+      "matches": 5,
+      "reference_descriptors": 349,
+      "rate": 0.014326647564469915
+    },
+    {
+      "frame": 384,
+      "matches": 6,
+      "reference_descriptors": 349,
+      "rate": 0.017191977077363897
+    },
+    {
+      "frame": 400,
+      "matches": 1,
+      "reference_descriptors": 349,
+      "rate": 0.0028653295128939827,
+      "sift_rate": 0.11063829787234042
+    },
+    {
+      "frame": 416,
+      "matches": 3,
+      "reference_descriptors": 349,
+      "rate": 0.008595988538681949
+    },
+    {
+      "frame": 432,
+      "matches": 1,
+      "reference_descriptors": 349,
+      "rate": 0.0028653295128939827
+    },
+    {
+      "frame": 448,
+      "matches": 2,
+      "reference_descriptors": 349,
+      "rate": 0.0057306590257879654
+    },
+    {
+      "frame": 464,
+      "matches": 3,
+      "reference_descriptors": 349,
+      "rate": 0.008595988538681949
+    },
+    {
+      "frame": 480,
+      "matches": 3,
+      "reference_descriptors": 349,
+      "rate": 0.008595988538681949
+    },
+    {
+      "frame": 496,
+      "matches": 6,
+      "reference_descriptors": 349,
+      "rate": 0.017191977077363897
+    }
+  ]
+}
